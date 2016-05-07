@@ -20,7 +20,7 @@
                 }
             }])
             $stateProvider
-                .state('root', {
+                .state('index', {
                     url: '',
                     views: {
                         '@': {
@@ -31,27 +31,73 @@
                         }
                     }
                 })
-                .state('userTest', {
-                    url: '/userTest',
-                    templateUrl: '../view/user/signin.html'
-                })
-                .state('userx', {
-                    url: '/userx',
+                .state('user', {
+                    url: '/user',
                     abstract: true,
                     template: '<div ui-view></div>'
                 })
-                .state('userx.login', {
-                    url: '/login',
-                    templateUrl: '../view/user/signin.html'
+                .state('user.login', {
+                    url: '/signin',
+                    views: {
+                        '@': {
+                            templateUrl: '../view/user/signin.html'
+                        },
+                        'header@': {
+                            templateUrl: '../view/header/header.html'
+                        }
+                    }
                 })
-                .state('userx.signup', {
+                .state('user.signup', {
                     url: '/signup',
-                    templateUrl: '../view/user/signup.html'
+                    views: {
+                        '@': {
+                            templateUrl: '../view/user/signup.html'
+                        },
+                        'header@': {
+                            templateUrl: '../view/header/header.html'
+                        }
+                    }
                 })
-                .state('userx.dashboard', {
+                .state('user.dashboard', {
                     url: '/dashboard',
-                    templateUrl: '../view/user/dashboard.html',
+                    views: {
+                        '@': {
+                            templateUrl: '../view/user/dashboard.html'
+                        },
+                        'header@': {
+                            templateUrl: '../view/header/header.html'
+                        }
+                    },
                     controller: 'dashboardController'
+                })
+                .state('note', {
+                    url: '/note',
+                    abstract: true,
+                    template: '<h2>lskadflksld</h2>'
+                })
+                .state('note.detail', {
+                    url: '/:id',
+                    resolve: {
+                        note: function($state, data) {
+                            var _id = $state.current.params.id
+                            console.log(_id)
+                            data.note.get(_id)
+                                .success(function(response) {
+                                    return response
+                                })
+                                .error(function(response) {
+                                    return null
+                                })
+                        }
+                    },
+                    views: {
+                        '@': {
+                            templateUrl: '../view/note/note.html'
+                        },
+                        'header@': {
+                            templateUrl: '../view/header/header.html'
+                        }
+                    },
                 })
         }])
         .controller('userController', ['$scope', '$timeout', 'data', function($scope, $timeout, data) {
@@ -93,6 +139,8 @@
                     })
             }
         }])
-        .controller('dashboardController', ['$scope', function($scope) {}])
+        .controller('dashboardController', ['$scope', function($scope) {
+            $scope.message = "Hello from controller for dashboardController"
+        }])
 
 })()
