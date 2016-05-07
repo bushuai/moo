@@ -1,7 +1,7 @@
     <div ui-view="header"></div>
     <div ng-controller="singleNoteController">
     <div id="top">
-    <i class="fa fa-rocket" aria-hidden="true"></i></div>
+        <i class="fa fa-rocket" aria-hidden="true"></i></div>
     <article class="article-detail">
         <header class="article-header">
             <div class="article-title">
@@ -9,38 +9,34 @@
             </div>
         </header>
         <div class="article-content">
-           <p>{{ note.content }}</p>
+            <p>{{ note.content }}</p>
             <div class="center"><i class="fa fa-heart"></i></div>
         </div>
         <footer class="article-footer">
             <div class="center liked-list">张三、李四、王五也点了赞</div>
         </footer>
     </article>
-
     </div>
+<script>
+$(function() {
 
-    <script>
-    $(function() {
-
-        $(window).scroll(function() {
-            if ($(window).scrollTop() > 100) {
-                $('#top').show()
-            } else {
-                $('#top').hide()
-            }
-        })
-
-        $('#top').click(function() {
-            $('body,html').animate({
-                'scrollTop': 0
-            }, 300)
-        })
-
-        $('.fa-heart').click(function() {
-            $(this).toggleClass('liked')
-        })
-
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 100) {
+            $('#top').show()
+        } else {
+            $('#top').hide()
+        }
     })
-    </script>
 
-    <div ui-view="footer"></div>
+    $('#top').click(function() {
+        $('body,html').animate({
+            'scrollTop': 0
+        }, 300)
+    })
+
+    $('.fa-heart').click(function() {
+        $(this).toggleClass('liked')
+    })
+
+})
+</script>

@@ -1,18 +1,13 @@
-(function() {
-
     var MOOAPP = angular.module('MOOAPP', ['ui.router'])
 
-    MOOAPP.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function($httpProvider, $stateProvider, $urlRouterProvider) {
+    MOOAPP.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
             $httpProvider.interceptors.push(["$q", function($q) {
                 return {
                     request: function(config) {
                         return config
                     },
                     response: function(response) {
-                        console.log('from provider response')
-                        console.log(response)
-                            //|| response.data.code !== 200
-                        if (!response.data || response.status !== 200) {
+                        if (!response.data || response.status !== 200 && response.data.code !== 200) {
                             return $q.reject('failed')
                         }
                         return response
@@ -20,11 +15,9 @@
                 }
             }])
 
-            // $urlRouterProvider.otherwise('/')
-
             $stateProvider
                 .state('index', {
-                    url: '/',
+                    url: '',
                     views: {
                         '@': {
                             templateUrl: '../view/pages/welcome.html'
@@ -76,23 +69,28 @@
                 .state('note', {
                     url: '/note',
                     abstract: true,
-                    template: '<div ui-view></div>'
+                    template: '<div ui-view></div>',
                 })
                 .state('note.detail', {
                     url: '/detail/:id',
-                    resolve: {
-                        singleNote: function($stateParams, data) {
-                            var _id = $stateParams.id
-                            return data.note.get(_id)
-                                .success(function(response) {
-                                    console.log(response.data)
-                                    return response.data
-                                })
-                                .error(function(response) {
-                                    return null
-                                })
-                        }
-                    },
+                    // resolve: {
+                    //     notex: ['$stateParams', '$q', 'data', function($stateParams, $q, data) {
+                    //         var defer = $q.defer()
+                    //         var _id = $stateParams.id
+                    //         return data.note.get(_id)
+                    //             .success(function(response) {
+                    //                 return response.data.data
+                    //             })
+                    //             .error(function(error) {
+                    //                 return error
+                    //             })
+                    //             // .then(function(response) {
+                    //             //     return response.data.data
+                    //             // }, function(error) {
+                    //             //     return error
+                    //             // })
+                    //     }]
+                    // },
                     views: {
                         '@': {
                             templateUrl: '../view/note/note.html'
@@ -106,7 +104,13 @@
                     },
                     controller: 'singleNoteController'
                 })
-
+        }])
+        .controller('singleNoteController', ['$scope', '$stateParams', 'data', function($scope, $stateParams, data) {
+            var _id = $stateParams.id
+            data.note.get(_id)
+                .success(function(response) {
+                    $scope.note = response.data
+                })
         }])
         .controller('userController', ['$scope', '$timeout', 'data', function($scope, $timeout, data) {
             $scope.js_signup = function() {
@@ -147,11 +151,6 @@
                     })
             }
         }])
-        .controller('singleNoteController', ['$scope', function($scope) {
-            console.log('fetch data here')
-        }])
         .controller('dashboardController', ['$scope', function($scope) {
             $scope.message = "Hello from controller for dashboardController"
         }])
-
-})()

@@ -100,6 +100,8 @@ module.exports = {
             if (err || !note) {
                 return res.send({ code: status.note_error.get__err })
             } else {
+                console.log('data from server:')
+                console.log(note)
                 res.send({ code: status.ok, data: note })
             }
         })

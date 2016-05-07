@@ -47,27 +47,27 @@
                 get: function(_id) {
                     return $http.get('/api/note/' + _id);
                 },
-                star:function(_id){
-                    return $http.post('/')
-                }
-                // update: function(post_id, category, title, summary, content, published) {
-                //     return $http.put("/api/posts/" + post_id, {
-                //         category: category,
-                //         title: title,
-                //         summary: summary,
-                //         content: content,
-                //         published: published
-                //     });
-                // },
-                // publish: function(post_id) {
-                //     return $http.put("/api/posts/" + post_id + "/publish", {});
-                // },
-                // unpublish: function(post_id) {
-                //     return $http.put("/api/posts/" + post_id + "/unpublish", {});
-                // },
-                // trash: function(post_id) {
-                //     return $http.delete("/api/posts/" + post_id, {});
-                // }
+                star: function(_id) {
+                        return $http.post('/')
+                    }
+                    // update: function(post_id, category, title, summary, content, published) {
+                    //     return $http.put("/api/posts/" + post_id, {
+                    //         category: category,
+                    //         title: title,
+                    //         summary: summary,
+                    //         content: content,
+                    //         published: published
+                    //     });
+                    // },
+                    // publish: function(post_id) {
+                    //     return $http.put("/api/posts/" + post_id + "/publish", {});
+                    // },
+                    // unpublish: function(post_id) {
+                    //     return $http.put("/api/posts/" + post_id + "/unpublish", {});
+                    // },
+                    // trash: function(post_id) {
+                    //     return $http.delete("/api/posts/" + post_id, {});
+                    // }
             }
         };
     }])
