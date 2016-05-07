@@ -19,9 +19,12 @@
                     }
                 }
             }])
+
+            // $urlRouterProvider.otherwise('/')
+
             $stateProvider
                 .state('index', {
-                    url: '',
+                    url: '/',
                     views: {
                         '@': {
                             templateUrl: '../view/pages/welcome.html'
@@ -73,17 +76,17 @@
                 .state('note', {
                     url: '/note',
                     abstract: true,
-                    template: '<h2>lskadflksld</h2>'
+                    template: '<div ui-view></div>'
                 })
                 .state('note.detail', {
-                    url: '/:id',
+                    url: '/detail/:id',
                     resolve: {
-                        note: function($state, data) {
-                            var _id = $state.current.params.id
-                            console.log(_id)
-                            data.note.get(_id)
+                        singleNote: function($stateParams, data) {
+                            var _id = $stateParams.id
+                            return data.note.get(_id)
                                 .success(function(response) {
-                                    return response
+                                    console.log(response.data)
+                                    return response.data
                                 })
                                 .error(function(response) {
                                     return null
@@ -96,9 +99,14 @@
                         },
                         'header@': {
                             templateUrl: '../view/header/header.html'
+                        },
+                        'footer@': {
+                            templateUrl: '../view/footer/footer.html'
                         }
                     },
+                    controller: 'singleNoteController'
                 })
+
         }])
         .controller('userController', ['$scope', '$timeout', 'data', function($scope, $timeout, data) {
             $scope.js_signup = function() {
@@ -138,6 +146,9 @@
                         alert('get note list success')
                     })
             }
+        }])
+        .controller('singleNoteController', ['$scope', function($scope) {
+            console.log('fetch data here')
         }])
         .controller('dashboardController', ['$scope', function($scope) {
             $scope.message = "Hello from controller for dashboardController"

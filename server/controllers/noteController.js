@@ -97,7 +97,7 @@ module.exports = {
         Note.findById({
             _id: req.params.id
         }, function(err, note) {
-            if (err || !travels) {
+            if (err || !note) {
                 return res.send({ code: status.note_error.get__err })
             } else {
                 res.send({ code: status.ok, data: note })
@@ -126,7 +126,7 @@ module.exports = {
     new: function(req, res, next) {
         res.render('/note/new')
     },
-    start: function(req, res, next) {
+    star: function(req, res, next) {
         var _id = req._id,
             name = req.name
         Note.start(_id, name, function(err) {

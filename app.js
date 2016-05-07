@@ -37,8 +37,8 @@ app.use(function(req, res, next) {
 
 
 // custome routes
-// app.use('/user', users)
-// app.use('/note', notes)
+app.use('/api/user', users)
+app.use('/api/note', notes)
 
 //render welcome page
 // app.get('/', function(req, res) {
