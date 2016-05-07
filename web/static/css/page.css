@@ -1,0 +1,602 @@
+    *,
+    ::before,
+    ::after {
+        box-sizing: border-box;
+    }
+    
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+    
+    body {
+        /* font: 14px/1.5 "PingFang SC", "Microsoft YaHei", "Lucida Grande", Helvetica, Arial, sans-serif, SimHei; */
+        background-attachment: fixed;
+        background-size: cover;
+        font: 300 1em/2 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans;
+        margin: 0;
+        background-image: url('../img/travel.jpg');
+    }
+    
+    a {
+        text-decoration: none;
+        color: #848484;
+    }
+    
+    ul {
+        list-style: none;
+    }
+    
+    .container {
+        margin-top: 50px;
+    }
+    /*
+    * 登录注册页面
+    ===============================*/
+    
+    .header {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 50px;
+        background-color: #fff;
+        /*opacity: 0.8;*/
+        z-index: 999;
+        line-height: 50px;
+        box-shadow: 0 0 5px #000;
+        transition: all .3s ease;
+    }
+    
+    .menu {
+        float: right;
+        margin: 3px 40px 0 0;
+    }
+    
+    .menu-item {
+        float: left;
+        width: 30px;
+        margin-right: 10px;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: #F7F7F7;
+        cursor: pointer
+    }
+    
+    .logo {
+        font-size: 25px;
+        font-weight: 200;
+        color: #9C9C9C;
+        margin-left: 40px;
+    }
+    
+    .form {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        padding: 30px 40px 40px;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+    }
+    
+    .loginform,
+    .regform {
+        background-color: #fff;
+        width: 400px;
+    }
+    
+    .regform {
+        top: 50%;
+        left: 50%;
+        margin-bottom: 200px;
+    }
+    
+    .form h2 {
+        text-align: center;
+        font-size: 25px;
+        font-weight: 200;
+    }
+    
+    .form button {
+        width: 100%;
+        font-size: 24px;
+        color: #fff;
+        border-radius: 10px;
+        border: none;
+        height: 48px;
+        outline: none;
+        background-color: #9C9C9C;
+        font-weight: 200;
+        /*transition: all .5s linear;*/
+    }
+    
+    .form button:hover {
+        background-color: #74B800;
+    }
+    
+    .form-item {
+        margin-top: 15px;
+    }
+    
+    .form-input {
+        padding: 15px;
+        width: 100%;
+        font-size: 20px;
+        /*outline: none;*/
+        font-weight: 100;
+        border-radius: 5px;
+        transition: all .2s linear;
+        border: 1px solid rgba(50, 58, 69, .2);
+    }
+    
+    .form *:focus {
+        outline: 0;
+        border-color: #499dd6;
+    }
+    
+    .form-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .footer {
+        font-size: 12px;
+        color: #404040;
+        text-align: center;
+        text-shadow: 0 0 5px #fff;
+        opacity: .6;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+    }
+    /*
+ * 用户界面 
+ ====================================*/
+    
+    .main {
+        height: 100%;
+        width: 100%;
+        background-image: url(../img/travel.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    
+    .profile-menu {
+        position: absolute;
+        list-style: none;
+        padding: 10px 0 10px;
+        width: 150px;
+        background-color: #fff;
+        text-align: center;
+        border-radius: 3px;
+        right: 30px;
+        top: 54px;
+        display: none;
+        box-shadow: 0 0 2px #ccc;
+    }
+    
+    .profile-menu::before {
+        display: block;
+        content: "";
+        width: 0;
+        top: 0;
+        height: 0;
+        left: 50%;
+        margin-left: -10px;
+        margin-top: -9px;
+        position: absolute;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #fff;
+    }
+    
+    .actions {
+        width: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .action {
+        width: 160px;
+        margin: 10px;
+        float: left;
+        text-align: center;
+        color: #5D5D5D;
+        font-weight: 500;
+        opacity: .9;
+        transition: all .4s linear;
+        background-color: #FCFCFC;
+        padding: 30px 10px;
+        border-radius: 10px;
+    }
+    
+    .action:hover {
+        opacity: 1;
+        background-color: #fff;
+    }
+    
+    .action a {
+        display: block;
+        transition: all .5s linear;
+    }
+    
+    .action a:hover {
+        color: #ACACAC;
+    }
+    
+    .arrow {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        bottom: 30px;
+        left: 48%;
+        animation: arrow 2s infinite linear;
+    }
+    
+    .arrow::before,
+    .arrow::after {
+        display: block;
+        position: absolute;
+        width: 20px;
+        height: 5px;
+        content: "";
+        background-color: #fff;
+    }
+    
+    .arrow::before {
+        transform: rotate(40deg);
+        margin-left: -12px;
+    }
+    
+    .arrow::after {
+        transform: rotate(-40deg);
+    }
+    
+    @keyframes arrow {
+        0% {
+            bottom: 0;
+        }
+        50% {
+            bottom: 10px;
+        }
+        100% {
+            bottom: 0;
+        }
+    }
+    /*
+ * 编辑器界面
+ ====================================*/
+    
+    .editor-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: none;
+        /* opacity: 0; */
+        left: 0;
+        top: 0;
+        background-image: url(../img/travel.jpg);
+        background-color: #fff;
+        background-size: cover;
+        transition: all .3s linear;
+        z-index: 999;
+    }
+    
+    .editor-main {
+        height: 100%;
+    }
+    
+    .editor-input,
+    .editor-content {
+        width: 100%;
+        border: none;
+        outline: none;
+        font-size: 20px;
+        font-weight: 300;
+        padding: 15px 20px;
+        border-radius: 5px;
+    }
+    
+    .editor-input {
+        height: 50px;
+    }
+    
+    .editor-content {
+        resize: none;
+        min-height: 300px;
+        font-weight: 100;
+        border: 1px solid rgba(50, 58, 69, .2);
+    }
+    
+    .editor-foot {
+        margin-top: 5%;
+        width: 33%;
+        text-align: center;
+        margin-left: 33%;
+    }
+    
+    .eidtor-form {
+        width: 60%;
+        margin-top: 50px;
+    }
+    
+    .tags {
+        margin: 10px 0;
+        font-size: 12px;
+    }
+    
+    .editor-close {
+        position: fixed;
+        cursor: pointer;
+        right: 50px;
+        top: 36px;
+        font-size: 30px;
+        color: #ccc;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #fff;
+        text-align: center;
+        line-height: 50px;
+    }
+    
+    .editor-travel .editor-tags input,
+    .editor-tags select {
+        float: left;
+        width: 49%;
+    }
+    
+    .cities {
+        width: 100%;
+        height: 49px;
+        border: none;
+        outline: none;
+        margin: 10px 0;
+        padding-left:15px;
+        margin-left: 2%;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border:1px solid #ccc;
+    }
+    /**
+     * Search 
+     */
+    
+    .search {
+        float: right;
+        margin-right: 40px;
+        padding: 5px 10px;
+        height: 30px;
+        line-height: 20px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        margin-top: 10px;
+        vertical-align: middle;
+        text-align: center;
+    }
+    
+    .search-input {
+        border: 0;
+        outline: 0;
+        margin-top: -2px;
+        width: 150px;
+        transition: all .2s ease-in-out;
+    }
+    
+    .search-input:focus {
+        width: 200px;
+    }
+    /**
+ * Article detail
+ */
+    
+    .article-header {
+        height: 340px;
+        overflow: hidden;
+        background-image: url(/img/1.jpeg);
+        background-size: cover;
+        border-radius: 5px;
+    }
+    
+    .article-detail {
+        width: 960px;
+        margin: 70px auto 10px;
+    }
+    
+    .article-detail img {
+        width: 100%;
+    }
+    
+    .article-header {
+        position: relative;
+    }
+    
+    .article-title {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+        top: 50%;
+        font-size: 30px;
+    }
+    
+    .article-footer {
+        /*  height:150px;
+      background-color: #000;
+      opacity:.8; */
+    }
+    
+    p {
+        margin: 1.5rem 0;
+        line-height: 2;
+    }
+    
+    #top {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #eee;
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        cursor: pointer;
+        display: none;
+        z-index: 999;
+        text-align: center;
+        line-height: 50px;
+        font-size: 20px;
+    }
+    
+    #top i {
+        transform: rotate(-45deg);
+    }
+    
+    @media (max-width:600px) {
+        .article-detail {
+            width: 100%;
+            margin-top: 70px;
+        }
+        .article-content {
+            padding: 0 10px;
+        }
+    }
+    
+    .center {
+        text-align: center;
+    }
+    
+    .fa-heart {
+        font-size: 30px;
+        color: #ececec;
+        cursor: pointer;
+        transition: all .3s ease;
+    }
+    
+    .liked {
+        color: #f00;
+        transition: all .3s ease;
+    }
+    
+    .liked-list {
+        font-size: 14px;
+        color: #ddd
+    }
+    /**
+     * all notes
+     */
+    
+    .box {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    
+    .box-item {
+        /*        position: absolute;
+        top: 0;
+        left: 0;*/
+        position: relative;
+        overflow: hidden;
+        background-color: #000;
+        transition: all 1.5s linear;
+        height: 100%;
+    }
+    
+    .item-title {
+        position: absolute;
+        z-index: 100;
+        color: #fff;
+        background-color: #4F4F4F;
+        width: 100%;
+        font-size: 30px;
+        padding: 10px 0;
+        text-align: center;
+        top: 45%;
+        font-weight: 100;
+        opacity: .8;
+    }
+    
+    .item-title a {
+        color: #fff;
+    }
+    
+    .item-title .fa {
+        transition: all .3s linear;
+    }
+    
+    .item-title .fa:hover {
+        transform: scale(1.3);
+    }
+    
+    .box-item img {
+        width: 100%;
+    }
+    
+    .active {
+        opacity: 1;
+    }
+    
+    @media screen and (max-width:480px) {
+        .box-item {
+            width: 100%;
+            height: 300px;
+        }
+        .item-title {
+            font-size: 20px;
+        }
+    }
+    
+    .play {
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        background-color: #ccc;
+        border-radius: 50%;
+        z-index: 10000;
+        top: 150px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 50px;
+    }
+    /**
+ * Welcome Page
+ */
+    
+    .widget {
+        float: right;
+        margin-right: 20px;
+        margin-top: 5px;
+        text-align: center;
+    }
+    
+    .widget-button {
+        width: 30px;
+        height: 30px;
+        display: block;
+        background-color: #ccc;
+        border-radius: 50%;
+        line-height: 30px;
+        font-size: 10px;
+    }
+    
+    .text {}
+    
+    .text-bg {
+        font-size: 50px;
+    }
+    
+    .text-hilight {
+        text-shadow: 0 0 2px #000;
+    }
+    
+    .header-collapsed {
+        top: -50px;
+    }

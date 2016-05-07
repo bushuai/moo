@@ -1,0 +1,81 @@
+<div class="actions" ng-controller="dashboardController">
+    <div class="action note">
+        <a href="javascript:void(0)"><img src="../../img/note_72px_1127571_easyicon.net.png" alt=""></a>
+        Note
+    </div>
+    <div class="action travel">
+        <a href="javascript:void(0)"><img src="../../img/google_maps_72px_1127498_easyicon.net.png" alt=""></a>
+        Travel
+    </div>
+    <div class="action">
+        <a href="javascript:void(0)"><img src="../../img/dropbox_android_72px_1127491_easyicon.net.png" alt=""></a>
+        Explor
+    </div>
+    <div class="action">
+        <a href="#setting"><img src="../../img/settings_72px_1127574_easyicon.net.png" alt=""></a>
+        Setting
+    </div>
+</div>
+<div class="editor-container editor-note">
+    <div class="editor-close fa fa-times"></div>
+    <form action="#" class="form eidtor-form">
+        <div class="editor-head">
+            <input class="form-input" id="editor-title" type="text" placeholder="请输入标题">
+        </div>
+        <div class="editor-tags">
+            <input type="text" class="form-input tags" placeholder="标签，以#开头，逗号分隔，如：#五味">
+        </div>
+        <textarea name="" class="form-input editor-content" id="editorContent" placeholder="请输入内容"></textarea>
+        <div class="editor-foot">
+            <button>发布</button>
+        </div>
+    </form>
+</div>
+<div class="editor-container editor-travel">
+    <div class="editor-close fa fa-times"></div>
+    <form action="#" class="form eidtor-form">
+        <div class="editor-head">
+            <input class="form-input" id="editor-title" type="text" placeholder="请输入标题">
+        </div>
+        <div class="editor-tags">
+            <input type="text" class="form-input tags" placeholder="标签，以#开头，逗号分隔，如：#五味">
+            <select name="city" id="city" class="cities">
+                <option value="Beijing">Beijing</option>
+                <option value="Beijing">Beijing</option>
+                <option value="Beijing">Beijing</option>
+                <option value="Beijing">Beijing</option>
+                <option value="Beijing">Beijing</option>
+            </select>
+        </div>
+        <textarea name="" class="form-input editor-content" id="editorContent" placeholder="请输入内容"></textarea>
+        <div class="editor-foot">
+            <button>发布</button>
+        </div>
+    </form>
+</div>
+<script>
+$(function() {
+    var profileMenu = $('.profile-menu')
+
+    $('.menu-item').has('ul').hover(function() {
+        profileMenu.toggle()
+    })
+
+    // 基于MEAN架构的网站实现
+    // MongoDB Express Angular.js Node.js
+    // 数据库    后端MVC  前端MVC    服务器
+
+    $('.note').click(function() {
+        $('.editor-note').show()
+    })
+
+    $('.travel').click(function() {
+        $('.editor-travel').show()
+    })
+
+    $('.editor-close').click(function() {
+        $(this).closest('.editor-container').hide()
+    })
+
+})
+</script>

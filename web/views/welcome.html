@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MOO - TO SEE THE WORLD</title>
+    <meta http-equiv="X-UA-Compatible" content="edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="./lib/normalize.css">
+    <link rel="stylesheet" href="./lib/font-awesome.css">
+    <link rel="stylesheet" href="./stylesheets/page.css">
+    <script src="./lib/jquery.js"></script>
+    <style>
+    .widget {
+        float: right;
+        margin-right: 20px;
+        margin-top: 5px;
+        text-align: center;
+    }
+    
+    .widget-button {
+        width: 30px;
+        height: 30px;
+        display: block;
+        background-color: #ccc;
+        border-radius: 50%;
+        line-height: 30px;
+        font-size: 10px;
+    }
+    
+    .text {}
+    
+    .text-bg {
+        font-size: 50px;
+    }
+    
+    .text-hilight {
+        text-shadow: 0 0 2px #000;
+    }
+    
+    .header-collapsed {
+        top: -50px;
+    }
+    </style>
+</head>
+
+<body id="explor">
+    <!-- <div class="play">next</div> -->
+    <header class="header">
+        <a href="#" class="logo"><i class="fa fa-connectdevelop"></i> 五味</a>
+        <div class="widget">
+            <a href="/login" class="fa fa-user-plus"></a>
+        </div>
+    </header>
+    <div class="box">
+        <div class="triangle"></div>
+        <div class="box-item">
+            <img src="images/busy.jpeg" alt="">
+            <div class="item-title ">
+                匆忙的脚步一直走了多久
+                <br> 是否还记得来时的路？
+            </div>
+        </div>
+        <div class="box-item">
+            <img src="images/travel.jpg" alt="">
+            <div class="item-title">
+                你是否总是感觉经历过的总是赶不上遗忘？
+            </div>
+        </div>
+        <div class="box-item">
+            <img src="images/reading.jpeg" alt="">
+            <div class="item-title">
+                你是否总是感觉读过的万卷书
+                <br> 总是抵不过时间的腐蚀？
+            </div>
+        </div>
+        <div class="box-item">
+            <img src="images/follow.jpeg" alt="">
+            <div class="item-title">
+                我们一直在路上
+                <br> 却一直在遗忘，怎么能这样！
+            </div>
+        </div>
+        <div class="box-item">
+            <img src="images/join.jpeg" alt="">
+            <!--             <div class="item-title">
+                不要因为走的太远
+                <br> 而忘记了当初为什么出发
+            </div> -->
+            <div class="item-title">
+                现在就 <a href="/login" class="text text-big text-hilight">加入</a> 五味
+                <br> 找回那些过往！
+            </div>
+        </div>
+    </div>
+    <script>
+    $(function() {
+        var sw = true,
+            st = $(window).scrollTop()
+
+        // jquery 兼容的滚轮事件
+        $(document).on("mousewheel DOMMouseScroll", function(e) {
+            if (st > 200) {
+                $('.header').addClass('header-collapsed')
+            } else {
+                $('.header').removeClass('header-collapsed')
+            }
+            var delta = e.originalEvent.wheelDelta || -e.originalEvent.detail
+            console.log(delta)
+            e.preventDefault()
+            if (sw) {
+                if (delta > 0) {
+                    sw = false
+                    st -= $('.box-item').height()
+                    $('body,html').animate({
+                        scrollTop: st
+                    }, 500, function() {
+                        sw = true
+                    })
+                } else {
+                    sw = false
+                    st += $('.box-item').height()
+                    $('body,html').animate({
+                        scrollTop: st
+                    }, 500, function() {
+                        sw = true
+                    })
+                }
+            }
+            return false
+        })
+    })
+    </script>
+</body>
+
+</html>

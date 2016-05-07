@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="uitest">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MOO - TO SEE THE WORLD</title>
+    <meta http-equiv="X-UA-Compatible" content="edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="./lib/normalize.css">
+    <link rel="stylesheet" href="./lib/font-awesome.css">
+    <link rel="stylesheet" href="./stylesheets/page.css">
+    <script src="./lib/angular.min.js"></script>
+    <script src="./lib/angular-ui-router.js"></script>
+    <script src="./lib/jquery.js"></script>
+</head>
+
+<body id="explor">
+    <ui-view name="content"></ui-view>
+    <script>
+    var uitest = angular.module('uitest', ['ui.router'])
+
+    uitest.config(function($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/users')
+
+        $stateProvider
+            .state('users', {
+                url: '/users',
+                views: {
+                    'content': {
+                        templateUrl: 'welcome-content.html'
+                    }
+                }
+            })
+            .state('users.login', {
+                url: '/login',
+                views: {
+                    'content@': {
+                        templateUrl: 'users.login.html'
+                    }
+                }
+            })
+            .state('users.reg', {
+                url: '/reg',
+                views: {
+                    'content@': {
+                        templateUrl: 'users.reg.html'
+                    }
+                }
+            })
+    })
+
+    // $(function() {
+    //     var sw = true,
+    //         st = $(window).scrollTop()
+
+    //     // jquery 兼容的滚轮事件
+    //     $(document).on("mousewheel DOMMouseScroll", function(e) {
+    //         if (st > 200) {
+    //             $('.header').addClass('header-collapsed')
+    //         } else {
+    //             $('.header').removeClass('header-collapsed')
+    //         }
+    //         var delta = e.originalEvent.wheelDelta || -e.originalEvent.detail
+    //         e.preventDefault()
+    //         if (sw) {
+    //             if (delta > 0) {
+    //                 sw = false
+    //                 st -= $('.box-item').height()
+    //                 $('body,html').animate({
+    //                     scrollTop: st
+    //                 }, 500, function() {
+    //                     sw = true
+    //                 })
+    //             } else {
+    //                 sw = false
+    //                 st += $('.box-item').height()
+    //                 $('body,html').animate({
+    //                     scrollTop: st
+    //                 }, 500, function() {
+    //                     sw = true
+    //                 })
+    //             }
+    //         }
+    //         return false
+    //     })
+    // })
+    </script>
+</body>
+
+</html>

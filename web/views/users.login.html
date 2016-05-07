@@ -1,0 +1,27 @@
+<body id="index">
+    {{ message}}
+    <header class="header">
+        <a href="index.html" class="logo"><i class="fa fa-connectdevelop"></i> 五味</a>
+        <div class="menu"><a href="explor.html">浏览</a></div>
+    </header>
+    <div class="main">
+        <div class="form loginform">
+            <h2>用户登录</h2>
+            <form action="home.html">
+                <div class="form-item">
+                    <input type="text" name="name" id="name" placeholder="用户名/邮箱" class="form-input">
+                </div>
+                <div class="form-item">
+                    <input type="password" name="password" id="password" placeholder="密码" class="form-input">
+                </div>
+                <div class="form-item">
+                    <button>登录</button>
+                </div>
+                <div class="form-link link-reg">还没帐号？<a ui-sref="users.reg" class="link-reg">赶快注册</a></div>
+            </form>
+        </div>
+    </div>
+    <!--    <footer class="footer">
+        Copyright &copy; 2016 五味
+    </footer> -->
+</body>

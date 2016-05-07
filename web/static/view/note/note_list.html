@@ -1,0 +1,43 @@
+<body id="explor">
+    <div class="box">
+        <%=notes%>
+    </div>
+    <script>
+    $(function() {
+        $(window).scroll(function() {
+            if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                $('.box').append('<div class="box-item"><img src="../../img/way-to-tibet-21.jpg" alt=""><div class="item-title">哲蚌寺 via 卜帅 new<br> <i class="fa fa-thumbs-up"></i> 106</div></div>')
+            }
+        })
+
+        // var sw = true,
+        //     st = $(window).scrollTop()
+
+        // jquery 兼容的滚轮事件
+    //     $(document).on("mousewheel DOMMouseScroll", function(e) {
+    //         var delta = e.originalEvent.wheelDelta || -e.originalEvent.detail
+    //         console.log(delta)
+    //         e.preventDefault()
+    //         if (sw) {
+    //             if (delta > 0) {
+    //                 sw = false
+    //                 st -= $('.box-item').height()
+    //                 $('body,html').animate({
+    //                     scrollTop: st
+    //                 }, 500, function() {
+    //                     sw = true
+    //                 })
+    //             } else {
+    //                 sw = false
+    //                 st += $('.box-item').height()
+    //                 $('body,html').animate({
+    //                     scrollTop: st
+    //                 }, 500, function() {
+    //                     sw = true
+    //                 })
+    //             }
+    //         }
+    //         return false
+    //     })
+    // })
+    </script>

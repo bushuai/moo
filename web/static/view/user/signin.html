@@ -1,0 +1,18 @@
+    <div class="main">
+        <div class="form loginform">
+            <h2>用户登录</h2>
+            <form method="post" ng-controller="userController">
+                <div class="form-item">
+                    <input type="text" name="loginId" id="loginId" placeholder="用户名/邮箱" ng-model="user.loginId" class="form-input">
+                </div>
+                <div class="form-item">
+                    <input type="password" name="password" id="password" placeholder="密码" ng-model="user.password" class="form-input">
+                </div>
+                <div class="form-item">
+                    <!-- <button ng-click="js_signin()">登录</button> -->
+                    <button ui-sref="userx.dashboard">登录</button>
+                </div>
+                <div class="form-link link-reg">还没帐号？<a ui-sref="userx.signup" class="link-reg">赶快注册</a></div>
+            </form>
+        </div>
+    </div>
