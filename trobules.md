@@ -6,8 +6,7 @@
 6. 布局问题，有哪些好的布局方法。
 7. crypto解决密码问题
 8. cros问题，跨域问题。
-
-
+9. ui.router resolve 无法实例化并绑定对应的controller
 
 
 

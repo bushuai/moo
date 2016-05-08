@@ -2,19 +2,17 @@ var status = require('./status'),
     User = require('../models/user'),
     config = require('../config/config')
 
-exports.check = function(onlyCheck) {
-    return function(req, res, next) {
-        console.log(req)
-        if (res.locals.isAutherized) {
-            next()
-        } else {
-            res.send({ code: status.error.permission_deny })
-        }
+exports.check = function(req, res, next) {
+    console.log(req)
+    if (res.locals.isAutherized) {
+        next()
+    } else {
+        res.send({ code: status.error.permission_deny })
     }
 }
 
 exports.authorize = function(req, res, next) {
-
+    console.log(req.cookies)
     var uid = req.cookies['uid']
 
     console.log(uid)

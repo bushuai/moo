@@ -1,11 +1,12 @@
-<div ng-controller="noteController">
+<div ng-controller="notesController">
     <div class="boxes notes">
-        <div class="box note" ng-repeat="note in allNotes">
+        <div class="box note" ng-repeat="note in notes">
             <div class="triangle"></div>
             <div class="box-item">
                 <img src="../../img/travel.jpg" alt="">
                 <div class="item-title">
-                    <a ui-sref="note.detail({id:note._id})" class="text text-big text-hilight">{{note.title}}</a>
+                    <!-- <i class="fa fa-book"></i> -->
+                    <i class="fa fa-paper-plane"></i> <a ui-sref="note.detail({id:note._id})" class="text text-big text-hilight">{{note.title}}</a>
                 </div>
             </div>
         </div>

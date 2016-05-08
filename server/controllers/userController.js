@@ -110,16 +110,14 @@ module.exports = {
      * @return {[type]}        [description]
      */
     show: function(req, res, next) {
-        console.log('show user profile '+ req.params.id)
+        console.log('show user profile ' + req.params.id)
         User.findById(req.params.id, function(err, user) {
-            console.log('find user ====')
-            console.log(user)
             if (err || !user) {
                 return res.send({
                     code: status.user_error.get_user_err
                 })
             } else {
-               return res.send({
+                return res.send({
                     code: status.ok,
                     data: user
                 })
@@ -170,22 +168,15 @@ module.exports = {
             password = req.body.password
 
         User.findByLoginId(loginId, function(err, user) {
-            var cookieConfig = {
-                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-                httpOnly: true,
-                path: '/',
-                domain: false
-            }
             if (err || !user) {
                 return res.send({ code: status.user_error.get_user_err })
             }
             if (user.validPassword(password)) {
-                res.clearCookie('user', { path: '/' })
+                console.log(user)
                 res.locals.isAuthorized = true
-                res.cookie('user', user.loginId, cookieConfig)
-                console.log('user id = ' + user._id)
-                res.cookie('online', true, cookieConfig)
-                res.cookie('uid', user._id, cookieConfig)
+                res.cookie('uid', user._id, {
+                    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                })
                 return res.send({ code: status.ok, data: user })
             } else {
                 return res.send({ code: status.user_error.invalid_password })

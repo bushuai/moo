@@ -22,15 +22,16 @@
                         return config
                     },
                     response: function(response) {
-                        console.log(response)
                         var isTemplate = typeof response.data !== 'object' && response.status === 200
                         var isData = typeof response.data === 'object' && response.data.code === 200
-                        var notLogined = typeof response.data === 'object' && response.data.code === 1005
+                            // var notLogined = typeof response.data === 'object' && response.data.code === 1005
 
-                        if (notLogined) {
-                            $state.go('user.signin')
-                            return
-                        }
+                        // if (notLogined) {
+                        // $state.go('user.signin')
+                        // return
+                        // }
+
+
                         if (isTemplate || isData) {
                             return response
                         } else {
@@ -92,6 +93,17 @@
                 })
                 .state('user.dashboard', {
                     url: '/dashboard',
+                    // resolve: {
+                    //     loadNote: function($cookies, $q) {
+                    //         var defer = $q.defer()
+                    //         var uid = /"(\w+)"/ig.exec($cookies.get('uid'))[1]
+                    //         data.user.get(uid, function(response) {
+                    //             console.og(response)
+                    //             defer.resolve(response.data)
+                    //         })
+                    //         return defer.promise
+                    //     }
+                    // },
                     views: {
                         '@': {
                             templateUrl: views.dashboard
@@ -110,7 +122,7 @@
                 .state('note.all', {
                     url: '/all',
                     templateUrl: views.not_list,
-                    controller: 'noteController',
+                    controller: 'notesController',
                     views: {
                         '@': {
                             templateUrl: views.note_list
@@ -125,25 +137,6 @@
                 })
                 .state('note.detail', {
                     url: '/detail/:id',
-                    // :-(   
-                    // resolve: {
-                    //     notex: ['$stateParams', '$q', 'data', function($stateParams, $q, data) {
-                    //         var defer = $q.defer()
-                    //         var _id = $stateParams.id
-                    //         return data.note.get(_id)
-                    //             .success(function(response) {
-                    //                 return response.data.data
-                    //             })
-                    //             .error(function(error) {
-                    //                 return error
-                    //             })
-                    //             // .then(function(response) {
-                    //             //     return response.data.data
-                    //             // }, function(error) {
-                    //             //     return error
-                    //             // })
-                    //     }]
-                    // },
                     views: {
                         '@': {
                             templateUrl: views.note
@@ -155,66 +148,37 @@
                             templateUrl: views.footer
                         }
                     },
-                    controller: 'singleNoteController'
-                })
-        }])
-        .controller('singleNoteController', ['$scope', '$stateParams', 'data', function($scope, $stateParams, data) {
-            var _id = $stateParams.id
-            data.note.get(_id)
-                .success(function(response) {
-                    $scope.note = response.data
+                    controller: 'noteController'
                 })
         }])
         .controller('signController', ['$scope', '$timeout', '$state', '$cookies', 'data', function($scope, $timeout, $state, $cookies, data) {
-
-            var isOnline = $cookies.get('online')
-            if (typeof isOnline !== 'undefined') {
-                $state.go('user.dashboard')
-            } else {
-                $state.go('user.signin')
-            }
-
             $scope.js_signup = function() {
-                data.user.signup($scope.user)
-                    .success(function(result) {
-                        alert('注册成功')
-                        console.log(result)
-                    })
-                    .error(function(result) {
-                        alert('注册错误')
-                        console.log(result)
-                    })
+                data.user.signup($scope.user, function(response) {
+                    $state.go('user.signin')
+                })
             }
 
             $scope.js_signin = function() {
-                data.user.signin($scope.user)
-                    .success(function(result) {
-                        console.log($cookies.getAll())
-                        $state.go('user.dashboard', {
-                            user: result.data
-                        })
-                        console.log(result.data)
-                    })
-                    .error(function(result) {
-                        alert('登录失败')
-                    })
+                data.user.signin($scope.user, function(response) {
+                    $state.go('user.dashboard')
+                })
             }
         }])
-        .controller('noteController', ['$scope', '$timeout', 'data', function($scope, $timeout, data) {
-            data.note.list()
-                .success(function(result) {
-                    $scope.allNotes = result.data
-                    console.log($scope.allNotes)
-                })
+        .controller('notesController', ['$scope', '$timeout', 'data', function($scope, $timeout, data) {
+            data.note.list(function(response) {
+                $scope.notes = response.data
+                console.log($scope.notes)
+            })
         }])
-        .controller('dashboardController', ['$scope', '$stateParams', '$cookies', 'data', function($scope, $stateParams, $cookies, data) {
+        .controller('noteController', ['$scope', '$stateParams', 'data', function($scope, $stateParams, data) {
+            var _id = $stateParams.id
+            data.note.get(_id, function(response) {
+                $scope.note = response.data
+            })
+        }])
+        .controller('dashboardController', ['$scope', '$cookies', 'data', function($scope, $cookies, data) {
             var uid = /"(\w+)"/ig.exec($cookies.get('uid'))[1]
-
-             data.user.get(uid)
-                .success(function(result) {
-                   $scope.currentUser = result.data
-                })
-                .error(function(){
-                    $state.go('user.signin')
-                })
+            data.user.get(uid, function(response) {
+                $scope.user = response.data
+            })
         }])

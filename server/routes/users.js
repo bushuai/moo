@@ -16,7 +16,7 @@ router.route('/:id')
 
 // /users/new GET 渲染注册页面
 router.route('/signup')
-    .post(auth.check, $.create)
+    .post($.create)
 
 // /users/new GET 渲染登录页面
 router.route('/signin')
