@@ -1,7 +1,7 @@
 <div class="main">
     <div class="form regform">
         <h2>身体灵魂，要有一个在路上</h2>
-        <form method="post" ng-controller="userController">
+        <form method="post" ng-controller="signController">
             <div class="form-item">
                 <input type="text" name="loginId" id="loginId" placeholder="用户名" ng-model="user.loginId" class="form-input">
             </div>
@@ -17,7 +17,7 @@
             <div class="form-item">
                 <button ng-click="js_signup()">注册</button>
             </div>
-            <div class="form-link">已经有帐号？<a ui-sref="user.login" class="link-login">去登录</a></div>
+            <div class="form-link">已经有帐号？<a ui-sref="user.signin" class="link-login">去登录</a></div>
         </form>
     </div>
 </div>

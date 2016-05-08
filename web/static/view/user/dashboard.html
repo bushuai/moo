@@ -1,4 +1,5 @@
-<div class="actions" ng-controller="dashboardController">
+<div class="main">
+    <div class="actions" ng-controller="dashboardController">
     <div class="action note">
         <a href="javascript:void(0)"><img src="../../img/note_72px_1127571_easyicon.net.png" alt=""></a>
         Note
@@ -53,29 +54,5 @@
         </div>
     </form>
 </div>
-<script>
-$(function() {
-    var profileMenu = $('.profile-menu')
+</div>
 
-    $('.menu-item').has('ul').hover(function() {
-        profileMenu.toggle()
-    })
-
-    // 基于MEAN架构的网站实现
-    // MongoDB Express Angular.js Node.js
-    // 数据库    后端MVC  前端MVC    服务器
-
-    $('.note').click(function() {
-        $('.editor-note').show()
-    })
-
-    $('.travel').click(function() {
-        $('.editor-travel').show()
-    })
-
-    $('.editor-close').click(function() {
-        $(this).closest('.editor-container').hide()
-    })
-
-})
-</script>

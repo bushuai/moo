@@ -1,6 +1,7 @@
 var User = require('../models/user'),
     excrypt = require('../config/encrypt'),
-    status = require('../config/status')
+    status = require('../config/status'),
+    config = require('../config/config')
 
 module.exports = {
     /**
@@ -109,13 +110,16 @@ module.exports = {
      * @return {[type]}        [description]
      */
     show: function(req, res, next) {
-        User.findByLoginId(req.params.id, function(err, user) {
+        console.log('show user profile '+ req.params.id)
+        User.findById(req.params.id, function(err, user) {
+            console.log('find user ====')
+            console.log(user)
             if (err || !user) {
-                return res.json({
+                return res.send({
                     code: status.user_error.get_user_err
                 })
             } else {
-                res.send({
+               return res.send({
                     code: status.ok,
                     data: user
                 })
@@ -141,9 +145,9 @@ module.exports = {
      * @param  {Function} next [description]
      * @return {[type]}        [description]
      */
-    new: function(req, res, next) {
-        res.render('user/signup')
-    },
+    // new: function(req, res, next) {
+    //     res.render('user/signup')
+    // },
     /**
      * 渲染登录页面
      * @param  {[type]}   req  [description]
@@ -151,9 +155,9 @@ module.exports = {
      * @param  {Function} next [description]
      * @return {[type]}        [description]
      */
-    login: function(req, res, next) {
-        res.render('user/signin')
-    },
+    // login: function(req, res, next) {
+    //     res.render('user/signin')
+    // },
     /**
      * 验证登录
      * @param  {[type]}   req  [description]
@@ -166,10 +170,22 @@ module.exports = {
             password = req.body.password
 
         User.findByLoginId(loginId, function(err, user) {
+            var cookieConfig = {
+                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                httpOnly: true,
+                path: '/',
+                domain: false
+            }
             if (err || !user) {
                 return res.send({ code: status.user_error.get_user_err })
             }
             if (user.validPassword(password)) {
+                res.clearCookie('user', { path: '/' })
+                res.locals.isAuthorized = true
+                res.cookie('user', user.loginId, cookieConfig)
+                console.log('user id = ' + user._id)
+                res.cookie('online', true, cookieConfig)
+                res.cookie('uid', user._id, cookieConfig)
                 return res.send({ code: status.ok, data: user })
             } else {
                 return res.send({ code: status.user_error.invalid_password })

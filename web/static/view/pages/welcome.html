@@ -28,7 +28,7 @@
                 <br> 却一直在遗忘，怎么能这样！
             </div>
         </div>
-        <div class="box-item">
+        <div class="box-item slogan">
             <img src="../../img/travel.jpg" alt="">
             <!--             <div class="item-title">
                 不要因为走的太远
@@ -40,11 +40,14 @@
             </div>
         </div>
     </div>
-    <!--  <script>
+     <script>
     $(function() {
         var sw = true,
             st = $(window).scrollTop()
 
+        function resizeImage(){
+            $('img').width($('.box').width()).height($('.box').height())
+        }
         // jquery 兼容的滚轮事件
         $(document).on("mousewheel DOMMouseScroll", function(e) {
             if (st > 200) {
@@ -58,7 +61,7 @@
             if (sw) {
                 if (delta > 0) {
                     sw = false
-                    st -= $('.box-item').height()
+                    st -= $('.slogan').height()
                     $('body,html').animate({
                         scrollTop: st
                     }, 500, function() {
@@ -66,7 +69,7 @@
                     })
                 } else {
                     sw = false
-                    st += $('.box-item').height()
+                    st += $('.slogan').height()
                     $('body,html').animate({
                         scrollTop: st
                     }, 500, function() {
@@ -77,4 +80,4 @@
             return false
         })
     })
-    </script> -->
+    </script>

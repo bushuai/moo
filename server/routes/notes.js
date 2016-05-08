@@ -1,17 +1,17 @@
 var express = require('express'),
     router = express.Router(),
     Note = require('../models/note'),
-    $ = require('../controllers/noteController')
+    $ = require('../controllers/noteController'),
+    auth = require('../config/auth')
 
 router.route('/')
     .get($.list)
-    .post($.create)
+    .post(auth.check,$.create)
     
 router.route('/:id')
     .get($.show)
-    .put($.update)
-    .delete($.destroy)
-
+    .post(auth.check,$.update)
+    .delete(auth.check,$.destroy)
 
 router.get('/:id/edit', $.edit)
 router.route('/readings')
@@ -20,8 +20,7 @@ router.route('/readings')
 router.route('/travels')
     .get($.travels)
 
-router.get('/new', $.new)
-
+router.get('/new',auth.check, $.new)
 
 
 module.exports = router

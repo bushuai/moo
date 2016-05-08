@@ -151,8 +151,8 @@ NoteSchema.statics.star = function(_id, username, callback) {
 var Note = mongoose.model('Note', NoteSchema)
 
 // new Note({
-//     title: 'note title x',
-//     content: 'note content x',
+//     title: 'note title 2',
+//     content: 'note content 2',
 //     author: '57259c90d069b0e9b48714bf'
 // }).save(function(err, note) {
 //     console.log(err)

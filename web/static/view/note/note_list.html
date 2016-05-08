@@ -1,43 +1,13 @@
-<!-- <div class="play">next</div> -->
-<div class="box">
-    <div class="triangle"></div>
-    <div class="box-item">
-        <img src="../../img/travel.jpg" alt="">
-        <div class="item-title ">
-            匆忙的脚步一直走了多久
-        </div>
-    </div>
-    <div class="box-item">
-        <img src="../../img/travel.jpg" alt="">
-        <div class="item-title">
-            你是否总是感觉经历过的总是赶不上遗忘？
-        </div>
-    </div>
-    <div class="box-item">
-        <img src="../../img/travel.jpg" alt="">
-        <div class="item-title">
-            读过的万卷长书
-        </div>
-    </div>
-    <div class="box-item">
-        <img src="../../img/travel.jpg" alt="">
-        <div class="item-title">
-            我们一直在路上
-        </div>
-    </div>
-    <div class="box-item">
-        <img src="../../img/travel.jpg" alt="">
-        <div class="item-title">
-            现在就 <a ui-sref="user.signup" class="text text-big text-hilight">加入</a> 五味
-            <br> 找回那些过往！
+<div ng-controller="noteController">
+    <div class="boxes notes">
+        <div class="box note" ng-repeat="note in allNotes">
+            <div class="triangle"></div>
+            <div class="box-item">
+                <img src="../../img/travel.jpg" alt="">
+                <div class="item-title">
+                    <a ui-sref="note.detail({id:note._id})" class="text text-big text-hilight">{{note.title}}</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script>
-$(function() {
-            $(window).scroll(function() {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                    $('.box').append('<div class="box-item"><img src="../../img/way-to-tibet-21.jpg" alt=""><div class="item-title">哲蚌寺 via 卜帅 new<br> <i class="fa fa-thumbs-up"></i> 106</div></div>')
-                }
-            })
-</script>

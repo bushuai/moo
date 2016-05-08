@@ -107,9 +107,10 @@ var User = mongoose.model('User', UserSchema)
  */
 
 // var bushuai = new User({
-//     name: 'bushuai',
-//     loginId: 'bushuai',
-//     password: encrypt('bushuai')
+//     name: 'b',
+//     loginId: 'b',
+//     password: encrypt('b'),
+//     email:'b@b.com'
 // })
 
 // bushuai.save(function(err, user) {

@@ -9,9 +9,9 @@
                 signup: function(user) {
                     return $http.post("/api/user/signup", { loginId: user.loginId, password: user.password, email: user.email });
                 },
-                // get_me: function() {
-                //     return $http.get("/api/user");
-                // },
+                get: function(_id) {
+                    return $http.get("/api/user/"+_id);
+                },
                 update: function(id, fields) {
                     return $http.put("/api/user/edit", { id: id, fields: fields });
                 },
