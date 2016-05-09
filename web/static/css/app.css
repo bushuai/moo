@@ -48,7 +48,7 @@
     
     .menu {
         float: right;
-        margin: 3px 40px 0 0;
+        margin: 10px 40px 0 0;
     }
     
     .menu-item {
@@ -149,9 +149,7 @@
         height: 100px;
         line-height: 100px;
     }
-
-
-/**
+    /**
 用户界面
 */
     
@@ -510,8 +508,8 @@
     
     .box.note {
         width: 60%;
-        height: 600px;
-        margin: 0 auto 50px;
+        height: 500px;
+        margin: 0 auto 20px;
     }
     
     .box-item {
@@ -626,4 +624,8 @@
     
     .header-collapsed {
         top: -50px;
+    }
+    
+    .form-has-error {
+        border: 1px solid #f00;
     }

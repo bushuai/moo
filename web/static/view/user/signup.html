@@ -3,16 +3,16 @@
         <h2>身体灵魂，要有一个在路上</h2>
         <form method="post" name="signupForm" ng-controller="signController" ng-submit="signup(signupForm.$valid)" novalidate>
             <div class="form-item">
-                <input type="text" name="loginId" id="loginId" placeholder="用户名" ng-model="user.loginId" class="form-input" required>
+                <input type="text" name="loginId" id="loginId" placeholder="用户名" ng-model="user.loginId" ng-minlength="5" ng-class="{ 'form-has-error': signupForm.loginId.$invalid && !signupForm.loginId.$pristine }"  class="form-input" required>
             </div>
             <div class="form-item">
-                <input type="email" name="email" id="email" placeholder="邮箱" ng-model="user.email" class="form-input" required>
+                <input type="email" name="email" id="email" placeholder="邮箱" ng-model="user.email"  ng-class="{ 'form-has-error': signupForm.email.$invalid && !signupForm.email.$pristine }"  class="form-input" required>
             </div>
             <div class="form-item">
-                <input type="password" name="password" id="password" placeholder="密码" ng-model="user.password" class="form-input" required>
+                <input type="password" name="password" id="password" placeholder="密码" ng-model="user.password"  ng-class="{ 'form-has-error': signupForm.password.$invalid && !signupForm.password.$pristine }"  class="form-input" required>
             </div>
             <div class="form-item">
-                <input type="password" name="repassword" id="repassword" placeholder="确认密码" ng-model="user.repassword" class="form-input" required>
+                <input type="password" name="repassword" id="repassword" placeholder="确认密码" ng-model="user.repassword"  ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }"  class="form-input" required>
             </div>
             <div class="form-item">
                 <button ng-disabled="signupForm.$invalid">注册</button>

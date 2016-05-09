@@ -22,9 +22,10 @@
                         return config
                     },
                     response: function(response) {
-                        // var isTemplate = typeof response.data === 'string' && response.status === 200
-                        // var isData = typeof response.data === 'object' && response.data.code === 200
-                        //     // var notLogined = typeof response.data === 'object' && response.data.code === 1005
+                        console.log(response)
+                        var isTemplate = typeof response.data === 'string' && response.status === 200
+                        var isData = typeof response.data === 'object' && response.data.code === 200
+                            // var notLogined = typeof response.data === 'object' && response.data.code === 1005
 
                         // // if (notLogined) {
                         // // $state.go('user.signin')
@@ -32,12 +33,11 @@
                         // // }
                         // console.log(typeof response.data, response.status)
 
-                        // if (isTemplate || isData) {
-                        //     return response
-                        // } else {
-                        //     return $q.reject('failed')
-                        // }
-                        return response
+                        if (isTemplate || isData) {
+                            return response
+                        } else {
+                            return $q.reject('failed')
+                        }
                     }
                 }
             }])
@@ -96,6 +96,9 @@
                     //         return defer.promise
                     //     }
                     // },
+                    params: {
+                        'user': {}
+                    },
                     views: {
                         '@': {
                             templateUrl: tpl.dashboard
@@ -144,19 +147,27 @@
                 })
         }])
         .controller('signController', ['$scope', '$timeout', '$state', '$cookies', 'data', function($scope, $timeout, $state, $cookies, data) {
-            $scope.signup = function() {
-                data.user.signup($scope.user, function(response) {
-                    $state.go('user.signin')
-                })
+            $scope.signup = function(isValid) {
+                alert('lsajdf')
+                if (isValid) {
+                    data.user.signup($scope.user, function(response) {
+                        if (response.data.code !== 200) {
+                            return
+                        }
+                        $state.go('user.signin')
+                    })
+                } else {
+                    alert('signup vlaid')
+                }
             }
 
             $scope.signin = function(isValid) {
                 if (isValid) {
                     data.user.signin($scope.user, function(response) {
-                        $state.go('user.dashboard')
+                        $state.go('user.dashboard', { user: response.data })
                     })
                 } else {
-                alert('not vlaid')
+                    alert('signin vlaid')
                 }
             }
         }])
@@ -172,9 +183,23 @@
             //     $scope.note = response.data
             // })
         }])
-        .controller('dashboardController', ['$scope', '$cookies', 'data', function($scope, $cookies, data) {
-            var uid = /"(\w+)"/ig.exec($cookies.get('uid'))[1]
-            data.user.get(uid, function(response) {
-                $scope.user = response.data
-            })
+        .controller('dashboardController', ['$scope', '$cookies', '$stateParams', '$state', 'data', function($scope, $cookies, $stateParams, $state, data) {
+            console.log($stateParams)
+
+            $scope.logout = function() {
+                $cookies.remove('uid')
+                $state.go('user.signin')
+                return
+            }
+
+            var cookieUid = $cookies.get('uid')
+            if (!cookieUid) {
+                $state.go('user.signin')
+            } else {
+                var uid = /"(\w+)"/ig.exec(cookieUid)[1]
+                data.user.get(uid, function(response) {
+                    $scope.currentUser = response.data
+                })
+            }
+
         }])

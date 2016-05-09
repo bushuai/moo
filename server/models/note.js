@@ -160,4 +160,3 @@ var Note = mongoose.model('Note', NoteSchema)
 // })
 
 module.exports = Note
-    

@@ -1,13 +1,13 @@
 <header class="header">
     <a href="/" class="logo"><i class="fa fa-connectdevelop"></i> 五味</a>
-    <ul class="menu">
+    <ul class="menu" ng-controller="dashboardController">
         <li class="menu-item"><i class="fa fa-user"></i>
             <ul class="profile-menu">
-                <li><a href="#">{{currentUser.name}}</a></li>
+                <li><a href="#">{{currentUser.loginId}}</a></li>
                 <li>笔记 <a href="#">1001</a> 篇</li>
                 <li>游记 <a href="#">8299</a> 篇</li>
             </ul>
         </li>
-        <li class="menu-item"><i class="fa fa-power-off"></i></li>
+        <li class="menu-item" ng-click="logout()"><i class="fa fa-power-off"></i></li>
     </ul>
 </header>
