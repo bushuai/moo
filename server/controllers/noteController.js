@@ -58,8 +58,8 @@ module.exports = {
      * @return {[type]}        [description]
      */
     create: function(req, res, next) {
-        res.json({
-            "msg": "create notes"
+        res.send({
+            code:status.ok
         })
     },
     /**
@@ -70,8 +70,8 @@ module.exports = {
      * @return {[type]}        [description]
      */
     destroy: function(req, res, next) {
-        res.json({
-            "msg": "note delete"
+        res.send({
+            code:status.ok
         })
     },
     /**
@@ -82,8 +82,8 @@ module.exports = {
      * @return {[type]}        [description]
      */
     update: function(req, res, next) {
-        res.json({
-            "msg": "note update"
+        res.send({
+            code:status.ok
         })
     },
     /**
@@ -113,11 +113,11 @@ module.exports = {
      * @param  {Function} next [description]
      * @return {[type]}        [description]
      */
-    edit: function(req, res, next) {
-        res.json({
-            "msg": "notes edit"
-        })
-    },
+    // edit: function(req, res, next) {
+    //      res.send({
+    //         code:status.ok
+    //     })
+    // },
     /**
      * 新建页面
      * @param  {[type]}   req  [description]
@@ -125,9 +125,9 @@ module.exports = {
      * @param  {Function} next [description]
      * @return {[type]}        [description]
      */
-    new: function(req, res, next) {
-        res.render('/note/new')
-    },
+    // new: function(req, res, next) {
+    //     res.render('/note/new')
+    // },
     star: function(req, res, next) {
         var _id = req._id,
             name = req.name

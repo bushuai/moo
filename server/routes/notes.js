@@ -13,14 +13,10 @@ router.route('/:id')
     .post(auth.check,$.update)
     .delete(auth.check,$.destroy)
 
-router.get('/:id/edit', $.edit)
 router.route('/readings')
     .get($.readings)
 
 router.route('/travels')
     .get($.travels)
-
-router.get('/new',auth.check, $.new)
-
 
 module.exports = router

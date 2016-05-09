@@ -1,18 +1,34 @@
-    <div class="main">
-        <div class="form loginform">
-            <h2>用户登录</h2>
-            <form method="post" ng-controller="signController">
-                <div class="form-item">
-                    <input type="text" name="loginId" id="loginId" placeholder="用户名/邮箱" ng-model="user.loginId" class="form-input">
-                </div>
-                <div class="form-item">
-                    <input type="password" name="password" id="password" placeholder="密码" ng-model="user.password" class="form-input">
-                </div>
-                <div class="form-item">
-                    <!-- <button ng-click="js_signin()">登录</button> -->
-                    <button ng-click="js_signin()">登录</button>
-                </div>
-                <div class="form-link link-reg">还没帐号？<a ui-sref="user.signup" class="link-reg">赶快注册</a></div>
-            </form>
-        </div>
+<div class="main">
+    <div class="form loginform">
+        <h2>用户登录</h2>
+        <form method="post" name="signinForm" ng-controller="signController" ng-submit="signin(signinForm.$valid)">
+            <div class="form-item">
+                <input type="text" name="loginId" id="loginId" placeholder="用户名/邮箱" ng-model="user.loginId" class="form-input" required>
+            </div>
+            <div class="form-item">
+                <input type="password" name="password" id="password" placeholder="密码" ng-model="user.password" class="form-input" required>
+            </div>
+            <div class="form-item">
+                <button type="submit" ng-disabled="signinForm.$invalid">登录</button>
+            </div>
+            <div class="form-link link-reg">还没帐号？<a ui-sref="user.signup" class="link-reg">赶快注册</a></div>
+        </form>
     </div>
+</div>
+<script>
+$(function() {
+    var $docH = $(document).height(),
+        $docW = $(document).width(),
+        $main = $('.main')
+
+    $main.width($docW)
+        .height($docH)
+
+    $(window).resize(function() {
+        $docH = $(document).height()
+        $docW = $(document).width()
+
+        $main.height($docH).width($docW)
+    })
+})
+</script>

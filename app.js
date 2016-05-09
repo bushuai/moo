@@ -5,7 +5,7 @@ var express = require('express'),
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    expressLayout = require('express3-ejs-layout'),
+    // expressLayout = require('express3-ejs-layout'),
     cors = require('cors'),
     config = require('./server/config/config'),
     users = require('./server/routes/users'),
@@ -19,8 +19,8 @@ app.use(express.static(path.join(__dirname, '/web/static')))
 
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
-app.set('layout', 'layout')
-app.use(expressLayout)
+// app.set('layout', 'layout')
+// app.use(expressLayout)
 app.use(cors())
 
 app.set('trust proxy', 1)

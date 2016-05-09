@@ -2,7 +2,7 @@
     <div class="actions" ng-controller="dashboardController">
         <div class="action note">
             <a href="javascript:void(0)"><img src="../../img/note_72px_1127571_easyicon.net.png" alt=""></a>
-            Note {{user.loginId}}
+            Note
         </div>
         <div class="action travel">
             <a href="javascript:void(0)"><img src="../../img/google_maps_72px_1127498_easyicon.net.png" alt=""></a>
@@ -55,3 +55,9 @@
         </form>
     </div>
 </div>
+
+<script>
+   $(function(){
+     $('.main').height($('html,body').height())
+   })
+</script>

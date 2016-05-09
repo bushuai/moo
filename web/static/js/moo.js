@@ -16,7 +16,7 @@ $(function() {
     $('.menu-item').has('ul').hover(function() {
         profileMenu.toggle()
     })
-    
+
     //for dashboard
     $('.note').click(function() {
         $('.editor-note').show()
@@ -29,4 +29,11 @@ $(function() {
     $('.editor-close').click(function() {
         $(this).closest('.editor-container').hide()
     })
+
+
+    $('.main').width($('html,body').width()).height($('html,body').height())
+
+   
+
+
 })
