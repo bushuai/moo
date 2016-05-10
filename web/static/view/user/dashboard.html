@@ -19,7 +19,7 @@
     </div>
     <div class="editor-container editor-note" ng-controller="note_editorController">
         <div class="editor-close fa fa-times"></div>
-        <form class="form eidtor-form" name="readingForm" ng-submit="pushReading(readingForm.$valid)">
+        <form class="form editor-form" name="readingForm" ng-submit="pushReading(readingForm.$valid)">
             <div class="editor-head">
                 <input class="form-input" type="text" placeholder="Reading title" ng-model="reading.title">
                 <input class="form-input" type="text" placeholder="Time spend" ng-model="reading.spend">
@@ -35,7 +35,7 @@
     </div>
     <div class="editor-container editor-travel" ng-controller="note_editorController">
         <div class="editor-close fa fa-times"></div>
-        <form class="form eidtor-form" name="travelForm" novalidate ng-submit="pushTravel(travelForm.$valid)">
+        <form class="form editor-form" name="travelForm" novalidate ng-submit="pushTravel(travelForm.$valid)">
             <div class="editor-head">
                 <input class="form-input" id="editor-title" type="text" placeholder="Travel title" ng-model="travel.title">
                 <input class="form-input" id="editor-title" type="text" placeholder="Time spend" ng-model="travel.spend">
@@ -58,12 +58,11 @@
         </form>
     </div>
 </div>
-
 <script>
 $(function() {
     $('.main').height($('html,body').height())
 
-        var profileMenu = $('.profile-menu')
+    var profileMenu = $('.profile-menu')
 
     $('.menu').hover(function() {
         profileMenu.show()
