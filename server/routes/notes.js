@@ -6,17 +6,17 @@ var express = require('express'),
 
 router.route('/')
     .get($.list)
-    .post(auth.check,$.create)
-    
-router.route('/:id')
-    .get($.show)
-    .post(auth.check,$.update)
-    .delete(auth.check,$.destroy)
+    .post(auth.check, $.add)
 
 router.route('/readings')
     .get($.readings)
 
 router.route('/travels')
     .get($.travels)
+
+router.route('/:id')
+    .get($.show)
+    .post(auth.check, $.update)
+    .delete(auth.check, $.destroy)
 
 module.exports = router

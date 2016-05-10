@@ -35,13 +35,21 @@ module.exports = {
         User.findByLoginId(reg_user.loginId, function(err, user) {
             if (!user) {
                 reg_user.save(function(err, user) {
+                    console.log('reg_user is ');
+                    console.log(user);
+                    console.log(!user)
+                    console.log('err is')
+                    console.log(err)
                     if (err || !user) {
+                        console.log('user reg failed')
                         return res.send({
                             code: status.user_error.invalid_user
                         })
                     } else {
+                        console.log('user reg success')
                         res.send({
-                            code: status.ok
+                            code: status.ok,
+                            user: user
                         })
                     }
                 })
@@ -92,7 +100,8 @@ module.exports = {
         User.update(_id, fields, function(err, user) {
             if (err || !user) {
                 return res.send({
-                    code: status.user_error.update_error
+                    code: status.user_error.update_error,
+                    user: user
                 })
             } else {
                 res.send({
@@ -119,7 +128,7 @@ module.exports = {
             } else {
                 return res.send({
                     code: status.ok,
-                    data: user
+                    user: user
                 })
             }
         })
@@ -173,11 +182,23 @@ module.exports = {
             }
             if (user.validPassword(password)) {
                 console.log(user)
+                
+                res.clearCookie(config.sessionKey, { path: '/' });
+                res.cookie(config.sessionKey, user._id, {
+                    path: '/',
+                    signed: true
+                })
+
                 res.locals.isAuthorized = true
                 res.cookie('uid', user._id, {
                     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
                 })
-                return res.send({ code: status.ok, data: user })
+
+                return res.send({
+                    code: status.ok,
+                    user: user
+                })
+
             } else {
                 return res.send({ code: status.user_error.invalid_password })
             }

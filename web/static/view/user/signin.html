@@ -1,7 +1,7 @@
 <div class="main">
     <div class="form loginform">
         <h2>用户登录</h2>
-        <form method="post" name="signinForm" ng-controller="signController" ng-submit="signin(signinForm.$valid)">
+        <form method="post" name="signinForm" ng-controller="user_signController" ng-submit="signin(signinForm.$valid)">
             <div class="form-item">
                 <input type="text" name="loginId" id="loginId" placeholder="用户名/邮箱" ng-model="user.loginId" ng-minlength="5" ng-class="{ 'form-has-error': signinForm.loginId.$invalid && !signinForm.loginId.$pristine }" class="form-input" required>
             </div>

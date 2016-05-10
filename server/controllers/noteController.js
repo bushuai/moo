@@ -50,6 +50,7 @@ module.exports = {
             }
         })
     },
+
     /**
      * 新建Note
      * @param  {[type]}   req  [description]
@@ -57,9 +58,26 @@ module.exports = {
      * @param  {Function} next [description]
      * @return {[type]}        [description]
      */
-    create: function(req, res, next) {
-        res.send({
-            code:status.ok
+    add: function(req, res, next) {
+        console.log('note add')
+        var new_note = new Note({
+            title: req.body.title,
+            content: req.body.content,
+            author: req.body.signedCookies[config.sessionKey],
+            type: req.body.type,
+            address: req.body.address,
+            spend: req.body.spend
+        })
+        console.log(new_note)
+        new_note.save(function(err, note) {
+            if (err || !note) {
+                return res.send({ code: status.note_error.add_err })
+            } else {
+                res.send({
+                    code: status.ok,
+                    note: note
+                })
+            }
         })
     },
     /**
@@ -71,7 +89,7 @@ module.exports = {
      */
     destroy: function(req, res, next) {
         res.send({
-            code:status.ok
+            code: status.ok
         })
     },
     /**
@@ -83,7 +101,7 @@ module.exports = {
      */
     update: function(req, res, next) {
         res.send({
-            code:status.ok
+            code: status.ok
         })
     },
     /**
@@ -137,7 +155,7 @@ module.exports = {
                     code: status.note_error.update_err
                 })
             } else {
-                return res.send({
+                res.send({
                     code: status.ok
                 })
             }

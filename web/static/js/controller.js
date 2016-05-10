@@ -11,11 +11,15 @@
         'signup': '../view/user/signup.html',
         'signin': '../view/user/signin.html',
         'dashboard': '../view/user/dashboard.html',
+        'setting': '../view/pages/setting.html',
+        'posts': '../view/user/posts.html',
         //note
         'note': '../view/note/note.html',
         'note_list': '../view/note/note_list.html'
     }
     MOOAPP.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
+            // Interceptors
+            //===============================================
             $httpProvider.interceptors.push(["$q", function($q) {
                 return {
                     request: function(config) {
@@ -42,7 +46,11 @@
                 }
             }])
 
+            // States
+            //===============================================
             $urlRouterProvider.otherwise('/')
+                // Index State
+                //===============================================
             $stateProvider
                 .state('index', {
                     url: '/',
@@ -55,6 +63,8 @@
                         }
                     }
                 })
+                // USER State
+                //===============================================
                 .state('user', {
                     url: '/user',
                     abstract: true
@@ -69,7 +79,7 @@
                             templateUrl: tpl.header
                         }
                     },
-                    controller: 'signController'
+                    controller: 'user_signController'
                 })
                 .state('user.signup', {
                     url: '/signup',
@@ -81,21 +91,22 @@
                             templateUrl: tpl.header
                         }
                     },
-                    controller: 'signController'
+                    controller: 'user_signController'
+                })
+                .state('user.setting', {
+                    url: '/setting',
+                    views: {
+                        '@': {
+                            templateUrl: tpl.setting
+                        },
+                        'header@': {
+                            templateUrl: tpl.header_user
+                        }
+                    },
+                    controller: 'user_settingController'
                 })
                 .state('user.dashboard', {
                     url: '/dashboard',
-                    // resolve: {
-                    //     loadNote: function($cookies, $q) {
-                    //         var defer = $q.defer()
-                    //         var uid = /"(\w+)"/ig.exec($cookies.get('uid'))[1]
-                    //         data.user.get(uid, function(response) {
-                    //             console.og(response)
-                    //             defer.resolve(response.data)
-                    //         })
-                    //         return defer.promise
-                    //     }
-                    // },
                     params: {
                         'user': {}
                     },
@@ -107,8 +118,24 @@
                             templateUrl: tpl.header_user
                         }
                     },
-                    controller: 'dashboardController'
+                    controller: 'user_dashboardController'
                 })
+                .state('user.posts', {
+                    url: '/posts',
+                    params: {
+                        'notes': {}
+                    },
+                    views: {
+                        '@': {
+                            templateUrl: tpl.posts
+                        },
+                        'header@': {
+                            templateUrl: tpl.header_user
+                        }
+                    }
+                })
+                // Note State
+                //===============================================
                 .state('note', {
                     url: '/note',
                     abstract: true,
@@ -117,7 +144,39 @@
                 .state('note.all', {
                     url: '/all',
                     templateUrl: tpl.not_list,
-                    controller: 'notesController',
+                    controller: 'note_listController',
+                    views: {
+                        '@': {
+                            templateUrl: tpl.note_list
+                        },
+                        'header@': {
+                            templateUrl: tpl.header_fn
+                        },
+                        'footer@': {
+                            templateUrl: tpl.footer
+                        }
+                    }
+                })
+                .state('note.readings', {
+                    url: '/readings',
+                    templateUrl: tpl.not_list,
+                    controller: 'note_readingsController',
+                    views: {
+                        '@': {
+                            templateUrl: tpl.note_list
+                        },
+                        'header@': {
+                            templateUrl: tpl.header_fn
+                        },
+                        'footer@': {
+                            templateUrl: tpl.footer
+                        }
+                    }
+                })
+                .state('note.travels', {
+                    url: '/travels',
+                    templateUrl: tpl.not_list,
+                    controller: 'note_travelsController',
                     views: {
                         '@': {
                             templateUrl: tpl.note_list
@@ -132,6 +191,9 @@
                 })
                 .state('note.detail', {
                     url: '/detail/:id',
+                    params: {
+                        'id': ""
+                    },
                     views: {
                         '@': {
                             templateUrl: tpl.note
@@ -143,63 +205,108 @@
                             templateUrl: tpl.footer
                         }
                     },
-                    controller: 'noteController'
+                    controller: 'note_singleController'
                 })
         }])
-        .controller('signController', ['$scope', '$timeout', '$state', '$cookies', 'data', function($scope, $timeout, $state, $cookies, data) {
-            $scope.signup = function(isValid) {
-                alert('lsajdf')
-                if (isValid) {
-                    data.user.signup($scope.user, function(response) {
-                        if (response.data.code !== 200) {
-                            return
-                        }
-                        $state.go('user.signin')
-                    })
-                } else {
-                    alert('signup vlaid')
-                }
-            }
+        // Controllers
+        //===============================================
+        .controller('user_signController', user_signController)
+        .controller('user_dashboardController', user_dashboardController)
+        .controller('user_settingController', user_settingController)
+        .controller('user_postsController', user_postsController)
+        .controller('note_listController', note_listController)
+        .controller('note_singleController', note_singleController)
+        .controller('note_editorController', note_editorController)
+        .controller('note_readingsController', note_readingsController)
+        .controller('note_travelsController', note_travelsController)
 
-            $scope.signin = function(isValid) {
-                if (isValid) {
-                    data.user.signin($scope.user, function(response) {
-                        $state.go('user.dashboard', { user: response.data })
-                    })
-                } else {
-                    alert('signin vlaid')
-                }
-            }
-        }])
-        .controller('notesController', ['$scope', '$timeout', 'data', function($scope, $timeout, data) {
-            data.note.list(function(response) {
-                $scope.notes = response.data
-                console.log($scope.notes)
-            })
-        }])
-        .controller('noteController', ['$scope', '$stateParams', 'data', function($scope, $stateParams, data) {
-            // var _id = $stateParams.id
-            // data.note.get(_id, function(response) {
-            //     $scope.note = response.data
-            // })
-        }])
-        .controller('dashboardController', ['$scope', '$cookies', '$stateParams', '$state', 'data', function($scope, $cookies, $stateParams, $state, data) {
-            console.log($stateParams)
 
-            $scope.logout = function() {
-                $cookies.remove('uid')
-                $state.go('user.signin')
-                return
-            }
-
-            var cookieUid = $cookies.get('uid')
-            if (!cookieUid) {
-                $state.go('user.signin')
+    // USER CONTROLLER
+    //===============================================
+    function user_signController($scope, $timeout, $state, $cookies, data) {
+        $scope.signup = function(isValid) {
+            if (isValid) {
+                data.user.signup($scope.user, function(response) {
+                    console.log('res from signup');
+                    console.log(response)
+                    if (response.user) {
+                        $state.go('user.signin', response.user)
+                    } else {
+                        alert('failed')
+                    }
+                })
             } else {
-                var uid = /"(\w+)"/ig.exec(cookieUid)[1]
-                data.user.get(uid, function(response) {
-                    $scope.currentUser = response.data
-                })
+                alert('signup vlaid')
             }
+        }
 
-        }])
+        $scope.signin = function(isValid) {
+            if (isValid) {
+                data.user.signin($scope.user, function(response) {
+                    $state.go('user.dashboard', { user: response.user })
+                })
+            } else {
+                alert('signin vlaid')
+            }
+        }
+    }
+
+    function user_dashboardController($scope, $cookies, $stateParams, $state, data) {
+        var uid = $cookies.get('uid')
+        if (uid) {
+            uid = /"(\w+)"/.exec(uid)[1]
+            data.user.get(uid, function(response) {
+                $scope.user = response.user
+            })
+        } else {
+            $state.go('user.signin')
+        }
+
+        $scope.logout = function() {
+            $cookies.remove('uid')
+            $cookies.remove('xid')
+            $state.go('user.signin')
+            return
+        }
+
+    }
+
+    function user_settingController($scope) {
+
+    }
+
+    function user_postsController($scope) {
+
+    }
+
+    // NOTE CONTROLLER
+    //===============================================
+
+    function note_editorController($scope) {
+        $scope.pushReading = function() {
+            console.log($scope.reading)
+        }
+
+        $scope.pushTravel = function() {
+            console.log($scope.travel)
+        }
+    }
+
+    function note_listController($scope, $timeout, data, $cookies) {
+        data.note.list(function(response) {
+            $scope.notes = response.data
+            console.log($scope.notes)
+        })
+    }
+
+    function note_singleController($scope, $stateParams) {
+        console.log($stateParams)
+    }
+
+    function note_readingsController($scope) {
+        
+    }
+
+    function note_travelsController($scope) {
+
+    }

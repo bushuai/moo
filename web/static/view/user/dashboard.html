@@ -1,66 +1,69 @@
 <div class="main">
-    <div class="actions" ng-controller="dashboardController">
+    <div class="actions" ng-controller="user_dashboardController">
         <div class="action note">
             <a href="javascript:void(0)"><img src="../../img/note_72px_1127571_easyicon.net.png" alt=""></a>
-            Note
+            Reading
         </div>
         <div class="action travel">
             <a href="javascript:void(0)"><img src="../../img/google_maps_72px_1127498_easyicon.net.png" alt=""></a>
             Travel
         </div>
         <div class="action">
-            <a ng-click="js_fetch()"><img src="../../img/dropbox_android_72px_1127491_easyicon.net.png" alt=""></a>
-            Explor
+            <a ui-sref="note.all"><img src="../../img/dropbox_android_72px_1127491_easyicon.net.png" alt=""></a>
+            Collections
         </div>
         <div class="action">
-            <a href="#setting"><img src="../../img/settings_72px_1127574_easyicon.net.png" alt=""></a>
+            <a ui-sref="user.setting"><img src="../../img/settings_72px_1127574_easyicon.net.png" alt=""></a>
             Setting
         </div>
     </div>
-    <div class="editor-container editor-note" ng-controller="editorController">
+    <div class="editor-container editor-note" ng-controller="note_editorController">
         <div class="editor-close fa fa-times"></div>
-        <form action="#" class="form eidtor-form">
+        <form class="form eidtor-form" name="readingForm" ng-submit="pushReading(readingForm.$valid)">
             <div class="editor-head">
-                <input class="form-input" id="editor-title" type="text" placeholder="请输入标题" ng-model="noteTitle">
+                <input class="form-input" type="text" placeholder="Reading title" ng-model="reading.title">
+                <input class="form-input" type="text" placeholder="Time spend" ng-model="reading.spend">
+                <input class="form-input" type="text" placeholder="Where" ng-model="reading.address">
+                <input type="hidden" name="editor-note-type" value="reading" ng-model="reading.type">
+                <input type="text" class="form-input tags" placeholder="Tags，sperated by #. eg：#Reading" ng-model="reading.tags">
             </div>
-            <div class="editor-tags">
-                <input type="text" class="form-input tags" placeholder="标签，以#开头，逗号分隔，如：#五味" ng-model="noteTags">
-            </div>
-            <textarea name="" class="form-input editor-content" id="editorContent" placeholder="请输入内容" ng-model="noteContent"></textarea>
+            <textarea name="" class="form-input editor-content" id="editorContent" placeholder="Write something else (markdown supported)" ng-model="reading.content"></textarea>
             <div class="editor-foot">
-                <button ng-click="createNote()">发布</button>
+                <button type="submit">Publish</button>
             </div>
         </form>
     </div>
-    <div class="editor-container editor-travel">
+    <div class="editor-container editor-travel" ng-controller="note_editorController">
         <div class="editor-close fa fa-times"></div>
-        <form action="#" class="form eidtor-form">
+        <form class="form eidtor-form" name="travelForm" novalidate ng-submit="pushTravel(travelForm.$valid)">
             <div class="editor-head">
-                <input class="form-input" id="editor-title" type="text" placeholder="请输入标题" ng-model="travel.title">
+                <input class="form-input" id="editor-title" type="text" placeholder="Travel title" ng-model="travel.title">
+                <input class="form-input" id="editor-title" type="text" placeholder="Time spend" ng-model="travel.spend">
+                <input type="text" class="form-input tags" placeholder="Tags，sperated by #. eg：#Travel" ng-model="travel.tags">
+                <input type="hidden" name="editor-note-type" value="travel" ng-model="note.type">
             </div>
             <div class="editor-tags">
-                <input type="text" class="form-input tags" placeholder="标签，以#开头，逗号分隔，如：#五味" ng-model="travel.tags">
                 <select name="city" id="city" class="cities" ng-model="travel.address">
+                    <option value="Xi'an">Xi'an</option>
                     <option value="Beijing">Beijing</option>
-                    <option value="Beijing">Beijing</option>
-                    <option value="Beijing">Beijing</option>
-                    <option value="Beijing">Beijing</option>
-                    <option value="Beijing">Beijing</option>
+                    <option value="Shanghai">Shanghai</option>
+                    <option value="Guangzhou">Guangzhou</option>
+                    <option value="Xining">Xining</option>
                 </select>
             </div>
-            <textarea name="" class="form-input editor-content" id="editorContent" placeholder="请输入内容" ng-model="travel.content"></textarea>
+            <textarea name="" class="form-input editor-content" id="editorContent" placeholder="Write something else (markdown supported)" ng-model="travel.content"></textarea>
             <div class="editor-foot">
-                <button ng-click="createTravel()">发布</button>
+                <button type="submit">Publish</button>
             </div>
         </form>
     </div>
 </div>
+
 <script>
 $(function() {
     $('.main').height($('html,body').height())
 
-    //for user profile toggle 
-    var profileMenu = $('.profile-menu')
+        var profileMenu = $('.profile-menu')
 
     $('.menu').hover(function() {
         profileMenu.show()

@@ -3,5 +3,6 @@ module.exports = {
     db: 'ww',
     port: 27017,
     secret: 'bushuai',
-    encryptType: 'sha1'
+    encryptType: 'sha1',
+    sessionKey:'xid'
 }

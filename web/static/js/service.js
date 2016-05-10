@@ -15,7 +15,8 @@
                 signup: function(user, fn) {
                     return $http.post("/api/user/signup", { loginId: user.loginId, password: user.password, email: user.email })
                         .success(function(response) {
-                            fn(response)
+                            console.log(response)
+                            return fn(response)
                         })
                 },
                 get: function(_id, fn) {
@@ -55,15 +56,12 @@
                             fn(response)
                         })
                 },
-                // add: function(category, title, summary, content, published) {
-                //     return $http.post("/api/post", {
-                //         category: category,
-                //         title: title,
-                //         summary: summary,
-                //         content: content,
-                //         published: published
-                //     });
-                // },
+                add: function(note, fn) {
+                    return $http.post("/api/note", note)
+                        .success(function(response) {
+                            fn(response)
+                        })
+                },
                 // get_for_me: function(page, size) {
                 //     return $http.get("/api/posts/me?page=" + page + "&size=" + size);
                 // },

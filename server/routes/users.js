@@ -8,11 +8,6 @@ router.route('/')
     // /users GET 获取全部用户信息
     .get($.list)
 
-router.route('/:id')
-    .get($.show)
-    // .post(auth.check, $.update)
-    // /users/1001 DELETE 删除用户信息
-    .delete(auth.check, $.destroy)
 
 // /users/new GET 渲染注册页面
 router.route('/signup')
@@ -21,6 +16,14 @@ router.route('/signup')
 // /users/new GET 渲染登录页面
 router.route('/signin')
     .post($.validate)
+
+
+router.route('/:id')
+    .get($.show)
+    // .post(auth.check, $.update)
+    // /users/1001 DELETE 删除用户信息
+    .delete(auth.check, $.destroy)
+
 
 // /users/1001/edit GET 渲染编辑页面
 router.get('/:id/edit', auth.check, $.edit)

@@ -1,5 +1,10 @@
-<div ng-controller="notesController">
+<div ng-controller="note_listController">
     <div class="boxes notes">
+        <h1>All Posts</h1>
+        <p>Choose:
+            <a ui-sref="note.travels">Travels</a> -
+            <a ui-sref="note.readings">Readings</a>
+        </p>
         <div class="box note" ng-repeat="note in notes">
             <div class="triangle"></div>
             <div class="box-item">

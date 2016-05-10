@@ -3,7 +3,6 @@ var status = require('./status'),
     config = require('../config/config')
 
 exports.check = function(req, res, next) {
-    console.log(req)
     if (res.locals.isAutherized) {
         next()
     } else {
@@ -12,10 +11,11 @@ exports.check = function(req, res, next) {
 }
 
 exports.authorize = function(req, res, next) {
-    console.log(req.cookies)
-    var uid = req.cookies['uid']
+    var uid = req.cookies['uid'],
+        xid = req.signedCookies[config.sessionKey]
 
-    console.log(uid)
+    console.log('uid ====' + uid)
+    console.log('xid ==== ' + xid)
 
     if (uid) {
         User.findByLoginId(uid, function(err, user) {
