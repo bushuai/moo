@@ -3,10 +3,13 @@ var status = require('./status'),
     config = require('../config/config')
 
 exports.check = function(req, res, next) {
+    console.log(res.locals.isAutherized)
     if (res.locals.isAutherized) {
+        console.log('check passed')
         next()
     } else {
-        res.send({ code: status.error.permission_deny })
+        console.log('check failed')
+        res.send({ code: status.error.permission_deny, 'message': 'please signin.' })
     }
 }
 
@@ -17,20 +20,24 @@ exports.authorize = function(req, res, next) {
     console.log('uid ====' + uid)
     console.log('xid ==== ' + xid)
 
-    if (uid) {
-        User.findByLoginId(uid, function(err, user) {
+    if (xid) {
+        User.findById(xid, function(err, user) {
+            console.log('requset scope user')
+            console.log(user)
             if (err || !user) {
-                res.locals.isAuthorized = false
+                console.log('not authorized')
+                res.locals.isAutherized = false
                 next()
                 return
             }
+            console.log('authorized')
             res.locals.user = user
             req.user = res.locals.user
-            res.locals.isAuthorized = true
+            res.locals.isAutherized = true
             next()
         })
     } else {
-        res.locals.isAuthorized = false
+        res.locals.isAutherized = false
         next();
     }
 

@@ -66,6 +66,7 @@ module.exports = {
             author: req.body.signedCookies[config.sessionKey],
             type: req.body.type,
             address: req.body.address,
+            tags:req.body.tags,
             spend: req.body.spend
         })
         console.log(new_note)

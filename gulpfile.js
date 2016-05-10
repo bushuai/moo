@@ -8,9 +8,6 @@ var wacthFiles = [
 ]
 
 gulp.task('styles', function() {
-    /**
-   nested,compact, compressed, or expanded.
-*/
     return gulp.src('./web/static/scss/**/*.scss')
         .pipe(sass({
             outputStyle: 'compact'

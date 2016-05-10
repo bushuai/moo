@@ -57,7 +57,14 @@
                         })
                 },
                 add: function(note, fn) {
-                    return $http.post("/api/note", note)
+                    return $http.post("/api/note", {
+                        title:note.title,
+                        content:note.content,
+                        spend:note.spend,
+                        type:note.type,
+                        tags:note.tags,
+                        address:note.address
+                    })
                         .success(function(response) {
                             fn(response)
                         })

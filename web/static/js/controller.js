@@ -282,9 +282,15 @@
     // NOTE CONTROLLER
     //===============================================
 
-    function note_editorController($scope) {
+    function note_editorController($scope,data) {
         $scope.pushReading = function() {
-            console.log($scope.reading)
+            data.note.add($scope.reading).success(function(response){
+                if(response.note){
+                    alert('publish success')
+                }else{
+                    alert('publish failed')
+                }
+            })
         }
 
         $scope.pushTravel = function() {
