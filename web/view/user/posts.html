@@ -1,0 +1,9 @@
+<ul class="user-posts" ng-controller="user_postsController" data-ng-init="init()">
+    <li ng-repeat="post in posts">
+        <h2>{{post.title}}</h2>
+        <img src="../../img/travel.jpg" alt="">
+        <div class="post-options">
+            <i class="fa fa-pencil-square-o" ng-click="edit(post._id)"> </i><i class="fa fa-trash-o" ng-click="remove(post._id)"></i>
+        </div>
+    </li>
+</ul>

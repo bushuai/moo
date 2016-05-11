@@ -17,15 +17,9 @@ exports.authorize = function(req, res, next) {
     var uid = req.cookies['uid'],
         xid = req.signedCookies[config.sessionKey]
 
-    console.log('uid ====' + uid)
-    console.log('xid ==== ' + xid)
-
     if (xid) {
         User.findById(xid, function(err, user) {
-            console.log('requset scope user')
-            console.log(user)
             if (err || !user) {
-                console.log('not authorized')
                 res.locals.isAutherized = false
                 next()
                 return

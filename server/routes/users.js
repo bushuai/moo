@@ -5,27 +5,22 @@ var express = require('express'),
     auth = require('../config/auth.js')
 
 router.route('/')
-    // /users GET 获取全部用户信息
     .get($.list)
 
-
-// /users/new GET 渲染注册页面
 router.route('/signup')
     .post($.create)
 
-// /users/new GET 渲染登录页面
 router.route('/signin')
     .post($.validate)
 
+router.route('/posts')
+    .get($.posts)
 
 router.route('/:id')
     .get($.show)
-    // .post(auth.check, $.update)
-    // /users/1001 DELETE 删除用户信息
     .delete(auth.check, $.destroy)
 
-
-// /users/1001/edit GET 渲染编辑页面
-router.get('/:id/edit', auth.check, $.edit)
+router.route('/:id/edit')
+    .post(auth.check, $.update)
 
 module.exports = router

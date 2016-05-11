@@ -1,7 +1,7 @@
 <div class="main">
     <div class="form loginform">
         <h2>用户登录</h2>
-        <form method="post" name="signinForm" ng-controller="user_signController" ng-submit="signin(signinForm.$valid)">
+        <form method="post" name="signinForm" ng-controller="user_signController" data-ng-init="init()" ng-submit="signin(signinForm.$valid)" novalidate>
             <div class="form-item">
                 <input type="text" name="loginId" id="loginId" placeholder="用户名/邮箱" ng-model="user.loginId" ng-minlength="5" ng-class="{ 'form-has-error': signinForm.loginId.$invalid && !signinForm.loginId.$pristine }" class="form-input" required>
             </div>
@@ -9,7 +9,7 @@
                 <input type="password" name="password" id="password" placeholder="密码" ng-model="user.password" ng-class="{ 'form-has-error': signinForm.password.$invalid && !signinForm.password.$pristine ,'form-has-error-equal': user.password !== user.repassword }" class="form-input" required>
             </div>
             <div class="form-item">
-                <button type="submit" ng-disabled="signinForm.$invalid">登录</button>
+                <button type="submit" ng-disabled="signinForm.$invalid"  ng-class="{'passed':signinForm.$valid}" >登录</button>
             </div>
             <div class="form-link link-reg">还没帐号？<a ui-sref="user.signup" class="link-reg">赶快注册</a></div>
         </form>

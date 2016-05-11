@@ -1,11 +1,12 @@
 var User = require('../models/user'),
+    Note = require('../models/note'),
     excrypt = require('../config/encrypt'),
     status = require('../config/status'),
     config = require('../config/config')
 
 module.exports = {
     /**
-     * 获取全部用户
+     * Fetch all user
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
@@ -17,7 +18,7 @@ module.exports = {
         })
     },
     /**
-     * 新建用户（注册）
+     * regist user
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
@@ -60,7 +61,7 @@ module.exports = {
 
     },
     /**
-     * 删除用户
+     * Remove user account
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
@@ -81,7 +82,7 @@ module.exports = {
         })
     },
     /**
-     * 更新用户信息
+     * Edit user profile
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
@@ -112,18 +113,20 @@ module.exports = {
 
     },
     /**
-     * 显示用户信息
+     * Show user info
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
      * @return {[type]}        [description]
      */
     show: function(req, res, next) {
+        console.log('show user profile xxx')
         console.log('show user profile ' + req.params.id)
         User.findById(req.params.id, function(err, user) {
             if (err || !user) {
                 return res.send({
-                    code: status.user_error.get_user_err
+                    code: status.user_error.get_user_err,
+                    message: 'show user profile failed'
                 })
             } else {
                 return res.send({
@@ -133,44 +136,13 @@ module.exports = {
             }
         })
     },
+
     /**
-     * 编辑用户信息
-     * @param  {[type]}   req  [description]
-     * @param  {[type]}   res  [description]
-     * @param  {Function} next [description]
-     * @return {[type]}        [description]
-     */
-    edit: function(req, res, next) {
-        res.json({
-            "msg": "should redirect to edit page"
-        })
-    },
-    /**
-     * 渲染注册页面
-     * @param  {[type]}   req  [description]
-     * @param  {[type]}   res  [description]
-     * @param  {Function} next [description]
-     * @return {[type]}        [description]
-     */
-    // new: function(req, res, next) {
-    //     res.render('user/signup')
-    // },
-    /**
-     * 渲染登录页面
-     * @param  {[type]}   req  [description]
-     * @param  {[type]}   res  [description]
-     * @param  {Function} next [description]
-     * @return {[type]}        [description]
-     */
-    // login: function(req, res, next) {
-    //     res.render('user/signin')
-    // },
-    /**
-     * 验证登录
-     * @param  {[type]}   req  [description]
-     * @param  {[type]}   res  [description]
-     * @param  {Function} next [description]
-     * @return {[type]}        [description]
+     * Validate 
+     * @param  {[type]}
+     * @param  {[type]}
+     * @param  {Function}
+     * @return {[type]}
      */
     validate: function(req, res, next) {
         var loginId = req.body.loginId,
@@ -178,11 +150,14 @@ module.exports = {
 
         User.findByLoginId(loginId, function(err, user) {
             if (err || !user) {
-                return res.send({ code: status.user_error.get_user_err })
+                return res.send({
+                    code: status.user_error.get_user_err,
+                    message: 'validate failed'
+                })
             }
             if (user.validPassword(password)) {
                 console.log(user)
-                
+
                 res.clearCookie(config.sessionKey, { path: '/' });
                 res.cookie(config.sessionKey, user._id, {
                     path: '/',
@@ -204,16 +179,19 @@ module.exports = {
             }
         })
     },
-    /**
-     * 注销用户
-     * @param  {[type]}   req  [description]
-     * @param  {[type]}   res  [description]
-     * @param  {Function} next [description]
-     * @return {[type]}        [description]
-     */
-    logout: function(req, res, next) {
-        res.json({
-            "msg": "user logout"
+    posts: function(req, res, next) {
+        Note.findByAuthor(req.user._id, function(err, posts) {
+            if (err || !posts) {
+                res.send({
+                    code: status.note_error.get__err,
+                    message: 'get user posts failed'
+                })
+            } else {
+                res.send({
+                    code: status.ok,
+                    posts: posts
+                })
+            }
         })
-    },
+    }
 }

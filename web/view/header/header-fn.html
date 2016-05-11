@@ -1,8 +1,8 @@
 <header class="header">
     <a href="/" class="logo"><i class="fa fa-connectdevelop"></i> 五味</a>
     <div class="search">
-        <form action="#">
-            <input type="text" class="search-input" name="s" id="s" placeholder="搜索游记/笔记">
+        <form ng-controller="note_listController">
+            <input type="text" class="search-input" name="s" id="s" ng-model="searchString" placeholder="搜索游记/笔记">
             <a href="#"><i class="fa fa-search"></i></a>
         </form>
     </div>

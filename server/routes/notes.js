@@ -7,7 +7,7 @@ var express = require('express'),
 router.route('/')
     .get($.list)
     .post(auth.check, $.add)
-
+    
 router.route('/readings')
     .get($.readings)
 

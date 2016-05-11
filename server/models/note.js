@@ -54,7 +54,7 @@ var NoteSchema = new mongoose.Schema({
 })
 
 /**
- * 获取全部笔记
+ * fetch all notes
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */
@@ -63,7 +63,7 @@ NoteSchema.statics.findAll = function(callback) {
 }
 
 /**
- * 获取全部读书笔记
+ * fetch all readings
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */
@@ -74,7 +74,7 @@ NoteSchema.statics.findAllReadings = function(callback) {
 }
 
 /**
- * 获取全部读书笔记
+ * fetch all travels
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */
@@ -86,7 +86,7 @@ NoteSchema.statics.findAllTravels = function(callback) {
 }
 
 /**
- * 获取某个笔记
+ * find note by id
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */
@@ -97,19 +97,37 @@ NoteSchema.statics.findById = function(_id, callback) {
 }
 
 /**
- * 通过作者查找
+ * find notes by author id
  * @param  {[type]}   loginId  [description]
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */
-NoteSchema.statics.findByAuthor = function(_id, callback) {
-    return this.model('Note').find({
-        _id: _id
-    }).populate('author').exec(callback)
+NoteSchema.statics.findByAuthor = function(uid, callback) {
+    return this.model('Note')
+        .find({
+            author: uid,
+        }).exec(callback)
+
+
+    // readings = this.model('Note')
+    //     .find({
+    //         type: 'reading',
+    //         author: uid
+    //     }).populate('author')
+
+    // travels = this.model('Note')
+    //     .find({
+    //         type: 'travel',
+    //         author: uid
+    //     }).populate('author')
+
+    // return this.model('Note').find({
+    //     _id: _id
+    // }).populate('author').exec(callback)
 }
 
 /**
- * 删除某个笔记
+ * remove note by id
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */
@@ -120,7 +138,7 @@ NoteSchema.statics.deleteById = function(_id, callback) {
 }
 
 /**
- * 更新某个笔记
+ * update note by note id
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */
@@ -131,7 +149,7 @@ NoteSchema.statics.updateById = function(_id, fields, callback) {
 }
 
 /**
- * 点赞
+ * star
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */

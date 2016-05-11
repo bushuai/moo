@@ -4,7 +4,7 @@
         return {
             user: {
                 signin: function(user, fn) {
-                    return $http.post("/api/user/signin", { loginId: user.loginId, password: user.password })
+                    return $http.post('/api/user/signin', { loginId: user.loginId, password: user.password })
                         .success(function(response) {
                             fn(response)
                         })
@@ -13,29 +13,35 @@
                         })
                 },
                 signup: function(user, fn) {
-                    return $http.post("/api/user/signup", { loginId: user.loginId, password: user.password, email: user.email })
+                    return $http.post('/api/user/signup', { loginId: user.loginId, password: user.password, email: user.email })
                         .success(function(response) {
                             console.log(response)
                             return fn(response)
                         })
                 },
                 get: function(_id, fn) {
-                    return $http.get("/api/user/" + _id).success(function(response) {
+                    return $http.get('/api/user/' + _id).success(function(response) {
                         fn(response)
                     })
                 },
                 update: function(id, fields, fn) {
-                    return $http.put("/api/user/edit", { id: id, fields: fields })
+                    return $http.post('/api/user/edit', { id: id, fields: fields })
                         .success(function(response) {
                             fn(response)
                         })
                 },
-                // update_avatar: function(path) {
-                //     return $http.put("/api/user/avatar", { path: path });
-                // },
-                // edit: function(password, new_password) {
-                //     return $http.put("/api/user/password", { password: password, new_password: new_password });
-                // }
+                posts: function(fn) {
+                        return $http.get('/api/user/posts')
+                            .success(function(response) {
+                                return fn(response)
+                            })
+                    }
+                    // update_avatar: function(path) {
+                    //     return $http.put("/api/user/avatar", { path: path });
+                    // },
+                    // edit: function(password, new_password) {
+                    //     return $http.put("/api/user/password", { password: password, new_password: new_password });
+                    // }
             },
             note: {
                 list: function(fn) {
@@ -58,13 +64,13 @@
                 },
                 add: function(note, fn) {
                     return $http.post("/api/note", {
-                        title:note.title,
-                        content:note.content,
-                        spend:note.spend,
-                        type:note.type,
-                        tags:note.tags,
-                        address:note.address
-                    })
+                            title: note.title,
+                            content: note.content,
+                            spend: note.spend,
+                            type: note.type,
+                            tags: note.tags,
+                            address: note.address
+                        })
                         .success(function(response) {
                             fn(response)
                         })

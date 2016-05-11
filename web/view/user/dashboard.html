@@ -1,0 +1,87 @@
+<div class="main">
+    <div class="actions" ng-controller="user_dashboardController" data-ng-init="init()">
+        <div class="action note">
+            <a href="javascript:void(0)"><img src="../../img/note_72px_1127571_easyicon.net.png" alt=""></a>
+            Reading
+        </div>
+        <div class="action travel">
+            <a href="javascript:void(0)"><img src="../../img/google_maps_72px_1127498_easyicon.net.png" alt=""></a>
+            Travel
+        </div>
+        <div class="action">
+            <a ui-sref="note.all"><img src="../../img/dropbox_android_72px_1127491_easyicon.net.png" alt=""></a>
+            Collections
+        </div>
+        <div class="action">
+            <a ui-sref="user.setting"><img src="../../img/settings_72px_1127574_easyicon.net.png" alt=""></a>
+            Setting
+        </div>
+    </div>
+    <div class="editor-container editor-note" ng-controller="note_editorController">
+        <div class="editor-close fa fa-times"></div>
+        <form class="form editor-form" name="readingForm" ng-submit="pushReading(readingForm.$valid)" novalidate>
+            <div class="editor-head">
+                <input class="form-input" type="text" placeholder="Reading title" ng-model="reading.title" required ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }">
+                <input class="form-input" type="text" placeholder="Time spend" ng-model="reading.spend" required ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }">
+                <input class="form-input" type="text" placeholder="Where" ng-model="reading.address" required ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }">
+                <input type="hidden" name="editor-note-type" value="reading" ng-model="reading.type">
+                <input type="text" class="form-input tags" placeholder="Tags，sperated by #. eg：#Reading" ng-model="reading.tags" required ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }">
+            </div>
+            <textarea name="" class="form-input editor-content" id="editorContent" placeholder="Write something else (markdown supported)" ng-model="reading.content" ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }" required></textarea>
+            <div class="editor-foot">
+                <button type="submit" ng-class="{'passed':readingForm.$valid}" ng-disabled="readingForm.$invalid">Publish</button>
+            </div>
+        </form>
+    </div>
+    <div class="editor-container editor-travel" ng-controller="note_editorController">
+        <div class="editor-close fa fa-times"></div>
+        <form class="form editor-form" name="travelForm" ng-submit="pushTravel(travelForm.$valid)" novalidate>
+            <div class="editor-head">
+                <input class="form-input" id="editor-title" type="text" placeholder="Travel title" ng-model="travel.title" required ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }">
+                <input class="form-input" id="editor-title" type="text" placeholder="Time spend" ng-model="travel.spend" required ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }">
+                <input type="text" class="form-input tags" placeholder="Tags，sperated by #. eg：#Travel" ng-model="travel.tags" required ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }">
+                <input type="hidden" name="editor-note-type" value="travel" ng-model="note.type">
+            </div>
+            <div class="editor-tags">
+                <select name="city" id="city" class="cities" ng-model="travel.address" required ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }">
+                    <option value="Xi'an">Xi'an</option>
+                    <option value="Beijing">Beijing</option>
+                    <option value="Shanghai">Shanghai</option>
+                    <option value="Guangzhou">Guangzhou</option>
+                    <option value="Xining">Xining</option>
+                </select>
+            </div>
+            <textarea name="" class="form-input editor-content" id="editorContent" placeholder="Write something else (markdown supported)" ng-model="travel.content" required ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }"></textarea>
+            <div class="editor-foot">
+                <button type="submit" ng-class="{'passed':travelForm.$valid}" ng-disabled="travelForm.$invalid">Publish</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+$(function() {
+    $('.main').height($('html,body').height())
+
+    var profileMenu = $('.profile-menu')
+
+    $('.menu').hover(function() {
+        profileMenu.show()
+    }, function() {
+        profileMenu.hide()
+    })
+
+    //for dashboard
+    $('.note').click(function() {
+        $('.editor-note').show()
+    })
+
+    $('.travel').click(function() {
+        $('.editor-travel').show()
+    })
+
+    $('.editor-close').click(function() {
+        $(this).closest('.editor-container').hide()
+    })
+
+})
+</script>

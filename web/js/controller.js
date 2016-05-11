@@ -122,9 +122,6 @@
                 })
                 .state('user.posts', {
                     url: '/posts',
-                    params: {
-                        'notes': {}
-                    },
                     views: {
                         '@': {
                             templateUrl: tpl.posts
@@ -132,7 +129,8 @@
                         'header@': {
                             templateUrl: tpl.header_user
                         }
-                    }
+                    },
+                    controller: 'user_postsController'
                 })
                 // Note State
                 //===============================================
@@ -217,13 +215,20 @@
         .controller('note_listController', note_listController)
         .controller('note_singleController', note_singleController)
         .controller('note_editorController', note_editorController)
-        .controller('note_readingsController', note_readingsController)
-        .controller('note_travelsController', note_travelsController)
+        .controller('note_listController', note_listController)
+        .controller('note_listController', note_listController)
 
 
     // USER CONTROLLER
     //===============================================
     function user_signController($scope, $timeout, $state, $cookies, data) {
+
+        $scope.init = function() {
+            if ($cookies.get('xid')) {
+                $state.go('user.dashboard')
+            }
+        }
+
         $scope.signup = function(isValid) {
             if (isValid) {
                 data.user.signup($scope.user, function(response) {
@@ -252,14 +257,16 @@
     }
 
     function user_dashboardController($scope, $cookies, $stateParams, $state, data) {
-        var uid = $cookies.get('uid')
-        if (uid) {
-            uid = /"(\w+)"/.exec(uid)[1]
-            data.user.get(uid, function(response) {
-                $scope.user = response.user
-            })
-        } else {
-            $state.go('user.signin')
+        $scope.init = function() {
+            var xid = $cookies.get('xid')
+            if (xid) {
+                xid = /"(\w+)"/.exec(xid)[1]
+                data.user.get(uid, function(response) {
+                    $scope.user = response.user
+                })
+            } else {
+                $state.go('user.signin')
+            }
         }
 
         $scope.logout = function() {
@@ -275,19 +282,31 @@
 
     }
 
-    function user_postsController($scope) {
+    function user_postsController($scope, data, $cookies) {
+        $scope.init = function() {
+            data.user.posts(function(response) {
+                $scope.posts = response.posts
+            })
+        }
 
+        $scope.remove = function(id) {
+            alert('remove ' + id)
+        }
+
+        $scope.edit = function(id) {
+            alert('edit ' + id)
+        }
     }
 
     // NOTE CONTROLLER
     //===============================================
 
-    function note_editorController($scope,data) {
+    function note_editorController($scope, data) {
         $scope.pushReading = function() {
-            data.note.add($scope.reading).success(function(response){
-                if(response.note){
+            data.note.add($scope.reading).success(function(response) {
+                if (response.note) {
                     alert('publish success')
-                }else{
+                } else {
                     alert('publish failed')
                 }
             })
@@ -299,20 +318,34 @@
     }
 
     function note_listController($scope, $timeout, data, $cookies) {
-        data.note.list(function(response) {
-            $scope.notes = response.data
-            console.log($scope.notes)
-        })
+        $scope.switchAll = function() {
+            data.note.list(function(response) {
+                $scope.notes = response.notes
+                console.log($scope.notes)
+            })
+        }
+
+        $scope.switchReadings = function() {
+            data.note.readings(function(response) {
+                $scope.notes = response.readings
+            })
+        }
+
+        $scope.switchTravels = function() {
+            data.note.travels(function(response) {
+                $scope.notes = response.travels
+            })
+        }
     }
 
-    function note_singleController($scope, $stateParams) {
-        console.log($stateParams)
-    }
+    function note_singleController($scope, $stateParams, data) {
+        $scope.init = function() {
+            data.note.get($stateParams.id, function(response) {
+                $scope.note = response.note
+            })
+        }
 
-    function note_readingsController($scope) {
-        
-    }
-
-    function note_travelsController($scope) {
-
+        $scope.star = function() {
+            alert('stared')
+        }
     }

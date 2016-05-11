@@ -1,0 +1,19 @@
+<div ng-controller="note_listController" data-ng-init="switchAll()">
+    <div class="boxes notes">
+        <p>Choose:
+            <a ng-click="switchAll()">All</a> -
+            <a ng-click="switchTravels()">Travels</a> -
+            <a ng-click="switchReadings()">Readings</a>
+        </p>
+        <div class="box note" ng-repeat="note in notes">
+            <div class="triangle"></div>
+            <div class="box-item">
+                <img src="../../img/travel.jpg" alt="">
+                <div class="item-title">
+                    <i class="fa fa-book" ng-show="note.type === 'reading'"></i>
+                    <i class="fa fa-paper-plane" ng-show="note.type === 'travel'"></i> <a ui-sref="note.detail({id:note._id})" class="text text-big text-hilight">{{note.title}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

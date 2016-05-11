@@ -11,11 +11,12 @@ var express = require('express'),
     users = require('./server/routes/users'),
     notes = require('./server/routes/notes'),
     auth = require('./server/config/auth')
-    app = express()
+
+app = express()
 
 // view engine setup
-app.set('views', path.join(__dirname, '/web/static/view'))
-app.use(express.static(path.join(__dirname, '/web/static')))
+app.set('views', path.join(__dirname, '/web/view'))
+app.use(express.static(path.join(__dirname, '/web')))
 
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);

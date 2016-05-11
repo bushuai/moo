@@ -13,7 +13,7 @@ module.exports = {
             if (err || !notes) {
                 return res.send({ code: status.note_error.get_list_err })
             } else {
-                res.send({ code: status.ok, data: notes })
+                res.send({ code: status.ok, notes: notes })
             }
         })
     },
@@ -29,13 +29,13 @@ module.exports = {
             if (err || !readings) {
                 return res.send({ code: status.note_error.get_list_err })
             } else {
-                res.send({ code: status.ok, data: readings })
+                res.send({ code: status.ok, readings: readings })
             }
         })
     },
 
     /**
-     * 获取全部Travels
+     * Fetch all travel
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
@@ -46,13 +46,13 @@ module.exports = {
             if (err || !travels) {
                 return res.send({ code: status.note_error.get_list_err })
             } else {
-                res.send({ code: status.ok, data: travels })
+                res.send({ code: status.ok, travels: travels })
             }
         })
     },
 
     /**
-     * 新建Note
+     * Add note
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
@@ -66,13 +66,15 @@ module.exports = {
             author: req.body.signedCookies[config.sessionKey],
             type: req.body.type,
             address: req.body.address,
-            tags:req.body.tags,
+            tags: req.body.tags,
             spend: req.body.spend
         })
         console.log(new_note)
         new_note.save(function(err, note) {
             if (err || !note) {
-                return res.send({ code: status.note_error.add_err })
+                return res.send({
+                 code: status.note_error.add_err,
+                 message:'add' })
             } else {
                 res.send({
                     code: status.ok,
@@ -82,7 +84,7 @@ module.exports = {
         })
     },
     /**
-     * 删除Note
+     * Remove note
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
@@ -94,7 +96,7 @@ module.exports = {
         })
     },
     /**
-     * 更新Note
+     * Edit note
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
@@ -106,7 +108,7 @@ module.exports = {
         })
     },
     /**
-     * 显示某个Note
+     * Show single note
      * @param  {[type]}   req  [description]
      * @param  {[type]}   res  [description]
      * @param  {Function} next [description]
@@ -121,35 +123,20 @@ module.exports = {
             } else {
                 console.log('data from server:')
                 console.log(note)
-                res.send({ code: status.ok, data: note })
+                res.send({ code: status.ok, note: note })
             }
         })
     },
     /**
-     * 编辑Note
-     * @param  {[type]}   req  [description]
-     * @param  {[type]}   res  [description]
-     * @param  {Function} next [description]
-     * @return {[type]}        [description]
+     * Star note
+     * @param  {[type]}
+     * @param  {[type]}
+     * @param  {Function}
+     * @return {[type]}
      */
-    // edit: function(req, res, next) {
-    //      res.send({
-    //         code:status.ok
-    //     })
-    // },
-    /**
-     * 新建页面
-     * @param  {[type]}   req  [description]
-     * @param  {[type]}   res  [description]
-     * @param  {Function} next [description]
-     * @return {[type]}        [description]
-     */
-    // new: function(req, res, next) {
-    //     res.render('/note/new')
-    // },
     star: function(req, res, next) {
-        var _id = req._id,
-            name = req.name
+        var _id = req.body._id,
+            name = req.body.name
         Note.start(_id, name, function(err) {
             if (err) {
                 return res.send({
@@ -162,4 +149,5 @@ module.exports = {
             }
         })
     }
+
 }

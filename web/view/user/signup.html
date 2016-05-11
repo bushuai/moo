@@ -1,7 +1,7 @@
 <div class="main">
     <div class="form regform">
         <h2>身体灵魂，要有一个在路上</h2>
-        <form method="post" name="signupForm" ng-controller="user_signController" ng-submit="signup(signupForm.$valid)" novalidate>
+        <form method="post" name="signupForm" ng-controller="user_signController" data-ng-init="init()" ng-submit="signup(signupForm.$valid)" novalidate>
             <div class="form-item">
                 <input type="text" name="loginId" id="loginId" placeholder="用户名" ng-model="user.loginId" ng-minlength="5" ng-class="{ 'form-has-error': signupForm.loginId.$invalid && !signupForm.loginId.$pristine }"  class="form-input" required>
             </div>
@@ -15,7 +15,7 @@
                 <input type="password" name="repassword" id="repassword" placeholder="确认密码" ng-model="user.repassword"  ng-class="{ 'form-has-error': signupForm.repassword.$invalid && !signupForm.repassword.$pristine }"  class="form-input" required>
             </div>
             <div class="form-item">
-                <button type="submit" ng-disabled="signupForm.$invalid">注册</button>
+                <button type="submit" ng-disabled="signupForm.$invalid"  ng-class="{'passed':signupForm.$valid}" >注册</button>
             </div>
             <div class="form-link">已经有帐号？<a ui-sref="user.signin" class="link-login">去登录</a></div>
         </form>

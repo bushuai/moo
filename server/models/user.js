@@ -52,19 +52,31 @@ var UserSchema = new Schema({
         default: []
     }
 })
-
+/**
+ * fetch all user
+ * @param  {Function}
+ * @return {[type]}
+ */
 UserSchema.statics.findAll = function(callback) {
     return this.model('User')
         .find({})
         .exec(callback)
 }
-
+/**
+ * find user by name
+ * @param  {Function}
+ * @return {[type]}
+ */
 UserSchema.statics.findByName = function(name, callback) {
     return this.model('User').findOne({
         name: new RegExp(name, 'i')
     }).exec(callback)
 }
-
+/**
+ * find user by id
+ * @param  {Function}
+ * @return {[type]}
+ */
 UserSchema.statics.findById = function(_id, callback) {
     return this.model('User')
         .findOne({
@@ -72,7 +84,11 @@ UserSchema.statics.findById = function(_id, callback) {
         })
         .exec(callback)
 }
-
+/**
+ * find user by loginId
+ * @param  {Function}
+ * @return {[type]}
+ */
 UserSchema.statics.findByLoginId = function(loginId, callback) {
     return this.model('User')
         .findOne({
@@ -80,14 +96,22 @@ UserSchema.statics.findByLoginId = function(loginId, callback) {
         })
         .exec(callback)
 }
-
+/**
+ * remove user by id
+ * @param  {Function}
+ * @return {[type]}
+ */
 UserSchema.statics.deleteById = function(_id, callback) {
     return this.model('User')
         .remove({
             _id: _id
         }).exec(callback)
 }
-
+/**
+ * eidt user by id
+ * @param  {Function}
+ * @return {[type]}
+ */
 UserSchema.statics.updateById = function(_id, fields, callback) {
     return this.model('User')
         .update({
@@ -95,7 +119,11 @@ UserSchema.statics.updateById = function(_id, fields, callback) {
         }, fields)
         .exec(callback)
 }
-
+/**
+ * validate user password
+ * @param  {Function}
+ * @return {[type]}
+ */
 UserSchema.methods.validPassword = function(password) {
     return this.password === encrypt(password)
 }
