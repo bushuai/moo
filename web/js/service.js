@@ -1,7 +1,16 @@
 (function() {
     var MOOAPP = angular.module('MOOAPP')
-    MOOAPP.factory('data', ['$http', function($http) {
+    MOOAPP.factory('data', ['$http', '$cookies', function($http, $cookies) {
         return {
+            uid: function() {
+                if ($cookies.get('xid')) {
+                    console.log('get xid ')
+                    return /"(\w+)"/ig.exec($cookies.get('xid'))[1]
+                } else {
+                    console.log('no xid found;')
+                    return null
+                }
+            },
             user: {
                 signin: function(user, fn) {
                     return $http.post('/api/user/signin', { loginId: user.loginId, password: user.password })
@@ -69,7 +78,8 @@
                             spend: note.spend,
                             type: note.type,
                             tags: note.tags,
-                            address: note.address
+                            address: note.address,
+                            author: note.author
                         })
                         .success(function(response) {
                             fn(response)
@@ -85,9 +95,9 @@
                         })
                 },
                 star: function(_id, fn) {
-                        return $http.post('/')
+                        return $http.post('/api/note/star', { _id: _id })
                             .success(function(response) {
-                                fn(response)
+                                return fn(response)
                             })
                     }
                     // update: function(post_id, category, title, summary, content, published) {

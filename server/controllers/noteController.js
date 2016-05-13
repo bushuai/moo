@@ -60,10 +60,11 @@ module.exports = {
      */
     add: function(req, res, next) {
         console.log('note add')
+        console.log(req.body)
         var new_note = new Note({
             title: req.body.title,
             content: req.body.content,
-            author: req.body.signedCookies[config.sessionKey],
+            author: req.body.author,
             type: req.body.type,
             address: req.body.address,
             tags: req.body.tags,
@@ -73,8 +74,9 @@ module.exports = {
         new_note.save(function(err, note) {
             if (err || !note) {
                 return res.send({
-                 code: status.note_error.add_err,
-                 message:'add' })
+                    code: status.note_error.add_err,
+                    message: 'add'
+                })
             } else {
                 res.send({
                     code: status.ok,
@@ -135,16 +137,18 @@ module.exports = {
      * @return {[type]}
      */
     star: function(req, res, next) {
+        console.log(req)
         var _id = req.body._id,
-            name = req.body.name
-        Note.start(_id, name, function(err) {
+            name = req.user.loginId
+        Note.star(_id, name, function(err, note) {
             if (err) {
                 return res.send({
                     code: status.note_error.update_err
                 })
             } else {
                 res.send({
-                    code: status.ok
+                    code: status.ok,
+                    note: note
                 })
             }
         })

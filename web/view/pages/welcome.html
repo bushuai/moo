@@ -43,39 +43,37 @@
 $(function() {
     $('.box').width($('html,body').width()).height($('html,body').height())
 
-
-    var sw = true,
-        st = $(window).scrollTop()
+    var sw = true
 
     $(document).on("mousewheel DOMMouseScroll", function(e) {
-
+        st = $(window).scrollTop()
         if (st > 200) {
             $('.header').addClass('header-collapsed')
         } else {
             $('.header').removeClass('header-collapsed')
         }
-        var delta = e.originalEvent.wheelDelta || -e.originalEvent.detail
-        e.preventDefault()
-        if (sw) {
-            if (delta > 0) {
-                sw = false
-                st -= $('.slogan').height()
-                $('body,html').animate({
-                    scrollTop: st
-                }, 500, function() {
-                    sw = true
-                })
-            } else {
-                sw = false
-                st += $('.slogan').height()
-                $('body,html').animate({
-                    scrollTop: st
-                }, 500, function() {
-                    sw = true
-                })
-            }
-        }
-        return false
+        // var delta = e.originalEvent.wheelDelta || -e.originalEvent.detail
+        // e.preventDefault()
+        // if (sw) {
+        //     if (delta > 0) {
+        //         sw = false
+        //         st -= $('.slogan').height()
+        //         $('body,html').animate({
+        //             scrollTop: st
+        //         }, 500, function() {
+        //             sw = true
+        //         })
+        //     } else {
+        //         sw = false
+        //         st += $('.slogan').height()
+        //         $('body,html').animate({
+        //             scrollTop: st
+        //         }, 500, function() {
+        //             sw = true
+        //         })
+        //     }
+        // }
+        // return false
     })
 
 })

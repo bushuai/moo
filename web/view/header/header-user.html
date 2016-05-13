@@ -1,6 +1,6 @@
 <header class="header">
     <a href="/" class="logo"><i class="fa fa-connectdevelop"></i> 五味</a>
-    <ul class="menu" ng-controller="user_dashboardController">
+    <ul class="menu" ng-controller="user_dashboardController" data-ng-init="init()">
         <li class="menu-item"><i class="fa fa-user"  ui-sref="user.posts"></i>
             <ul class="profile-menu">
                 <li>{{user.loginId}}</li>

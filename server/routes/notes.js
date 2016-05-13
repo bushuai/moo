@@ -7,13 +7,16 @@ var express = require('express'),
 router.route('/')
     .get($.list)
     .post(auth.check, $.add)
-    
+
 router.route('/readings')
     .get($.readings)
 
 router.route('/travels')
     .get($.travels)
 
+router.route('/star')
+    .post($.star)
+    
 router.route('/:id')
     .get($.show)
     .post(auth.check, $.update)

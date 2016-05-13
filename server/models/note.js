@@ -154,6 +154,7 @@ NoteSchema.statics.updateById = function(_id, fields, callback) {
  * @return {[type]}            [description]
  */
 NoteSchema.statics.star = function(_id, username, callback) {
+    console.log(_id, username);
     var conditions = {
             _id: _id
         },
@@ -163,7 +164,7 @@ NoteSchema.statics.star = function(_id, username, callback) {
             }
         },
         options = {}
-    return Note.update(conditions, updates, options, callback)
+    return Note.findOneAndUpdate(conditions, updates, options, callback);
 }
 
 var Note = mongoose.model('Note', NoteSchema)

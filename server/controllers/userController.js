@@ -180,6 +180,8 @@ module.exports = {
         })
     },
     posts: function(req, res, next) {
+        console.log('users posts user _id')
+        console.log(req.user._id)
         Note.findByAuthor(req.user._id, function(err, posts) {
             if (err || !posts) {
                 res.send({

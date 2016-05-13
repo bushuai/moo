@@ -12,7 +12,7 @@
         </div>
         <footer class="article-footer">
             <div class="center"><i class="fa fa-heart" ng-click="star()"></i></div>
-            <div class="center liked-list">张三、李四、王五也点了赞</div>
+            <div class="center liked-list"><span ng-repeat="p in note.stars">{{p}}</span> 点了赞</div>
         </footer>
     </article>
 </div>

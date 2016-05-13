@@ -17,7 +17,8 @@
         'note': '../view/note/note.html',
         'note_list': '../view/note/note_list.html'
     }
-    MOOAPP.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
+    MOOAPP
+        .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
             // Interceptors
             //===============================================
             $httpProvider.interceptors.push(["$q", function($q) {
@@ -224,7 +225,7 @@
     function user_signController($scope, $timeout, $state, $cookies, data) {
 
         $scope.init = function() {
-            if ($cookies.get('xid')) {
+            if (data.uid()) {
                 $state.go('user.dashboard')
             }
         }
@@ -258,10 +259,11 @@
 
     function user_dashboardController($scope, $cookies, $stateParams, $state, data) {
         $scope.init = function() {
-            var xid = $cookies.get('xid')
+            var xid = data.uid()
             if (xid) {
-                xid = /"(\w+)"/.exec(xid)[1]
-                data.user.get(uid, function(response) {
+                data.user.get(xid, function(response) {
+                    console.log('response from userdashboard')
+                    console.log(response.user)
                     $scope.user = response.user
                 })
             } else {
@@ -285,6 +287,7 @@
     function user_postsController($scope, data, $cookies) {
         $scope.init = function() {
             data.user.posts(function(response) {
+                console.log(response.posts)
                 $scope.posts = response.posts
             })
         }
@@ -301,9 +304,21 @@
     // NOTE CONTROLLER
     //===============================================
 
-    function note_editorController($scope, data) {
+    function note_editorController($scope, data, $cookies) {
+        $scope.xid = data.uid()
+        $scope.reading = {
+            type: 'reading',
+            author: $scope.xid
+        }
+        console.log($scope.xid);
+        $scope.travel = {
+            type: 'travel',
+            author: $scope.xid
+        }
         $scope.pushReading = function() {
-            data.note.add($scope.reading).success(function(response) {
+            console.log($scope.reading)
+            data.note.add($scope.reading, function(response) {
+                console.log(response)
                 if (response.note) {
                     alert('publish success')
                 } else {
@@ -314,6 +329,13 @@
 
         $scope.pushTravel = function() {
             console.log($scope.travel)
+            data.note.add($scope.travel, function(response) {
+                if (response.note) {
+                    alert('publish success')
+                } else {
+                    alert('publish failed')
+                }
+            })
         }
     }
 
@@ -338,7 +360,7 @@
         }
     }
 
-    function note_singleController($scope, $stateParams, data) {
+    function note_singleController($scope, $stateParams, $state,data) {
         $scope.init = function() {
             data.note.get($stateParams.id, function(response) {
                 $scope.note = response.note
@@ -346,6 +368,10 @@
         }
 
         $scope.star = function() {
-            alert('stared')
+            data.note.star($scope.note._id, function(response) {
+                $scope.note = response.note
+                $state.go($state.current, {}, { reload: true });
+
+            })
         }
     }
