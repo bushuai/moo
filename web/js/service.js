@@ -17,15 +17,14 @@
                         .success(function(response) {
                             fn(response)
                         })
-                        .success(function(response) {
-                            fn(response)
-                        })
                 },
                 signup: function(user, fn) {
                     return $http.post('/api/user/signup', { loginId: user.loginId, password: user.password, email: user.email })
                         .success(function(response) {
-                            console.log(response)
                             return fn(response)
+                        })
+                        .error(function() {
+                            return fn(null)
                         })
                 },
                 get: function(_id, fn) {
@@ -40,17 +39,11 @@
                         })
                 },
                 posts: function(fn) {
-                        return $http.get('/api/user/posts')
-                            .success(function(response) {
-                                return fn(response)
-                            })
-                    }
-                    // update_avatar: function(path) {
-                    //     return $http.put("/api/user/avatar", { path: path });
-                    // },
-                    // edit: function(password, new_password) {
-                    //     return $http.put("/api/user/password", { password: password, new_password: new_password });
-                    // }
+                    return $http.get('/api/user/posts')
+                        .success(function(response) {
+                            return fn(response)
+                        })
+                }
             },
             note: {
                 list: function(fn) {
@@ -85,9 +78,6 @@
                             fn(response)
                         })
                 },
-                // get_for_me: function(page, size) {
-                //     return $http.get("/api/posts/me?page=" + page + "&size=" + size);
-                // },
                 get: function(_id, fn) {
                     return $http.get('/api/note/' + _id)
                         .success(function(response) {
@@ -95,29 +85,11 @@
                         })
                 },
                 star: function(_id, fn) {
-                        return $http.post('/api/note/star', { _id: _id })
-                            .success(function(response) {
-                                return fn(response)
-                            })
-                    }
-                    // update: function(post_id, category, title, summary, content, published) {
-                    //     return $http.put("/api/posts/" + post_id, {
-                    //         category: category,
-                    //         title: title,
-                    //         summary: summary,
-                    //         content: content,
-                    //         published: published
-                    //     });
-                    // },
-                    // publish: function(post_id) {
-                    //     return $http.put("/api/posts/" + post_id + "/publish", {});
-                    // },
-                    // unpublish: function(post_id) {
-                    //     return $http.put("/api/posts/" + post_id + "/unpublish", {});
-                    // },
-                    // trash: function(post_id) {
-                    //     return $http.delete("/api/posts/" + post_id, {});
-                    // }
+                    return $http.post('/api/note/star', { _id: _id })
+                        .success(function(response) {
+                            return fn(response)
+                        })
+                }
             }
         };
     }])

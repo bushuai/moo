@@ -1,0 +1,25 @@
+
+<div class="main">
+    <div class="form loginform">
+        <h2>个人设置</h2>
+        <form method="post" name="signinForm"  ng-submit="signin(signinForm.$valid)" novalidate="" class="ng-pristine ng-scope ng-invalid ng-invalid-required ng-valid-minlength">
+            <div class="form-item">
+                <input type="text" name="loginId" id="loginId" placeholder="bushuai" ng-model="user.loginId" ng-minlength="5" ng-class="{ 'form-has-error': signinForm.loginId.$invalid &amp;&amp; !signinForm.loginId.$pristine }" class="form-input ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-minlength ng-touched" required="" disabled="" style="
+    background-color: #EFEBEB;
+">
+            </div>
+            <div class="form-item">
+                <input type="password" name="password" id="password" placeholder="新密码" ng-model="user.password" ng-class="{ 'form-has-error': signinForm.password.$invalid &amp;&amp; !signinForm.password.$pristine ,'form-has-error-equal': user.password !== user.repassword }" class="form-input ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" required="">
+            </div>
+            <div class="form-item">
+                <input type="password" name="password" id="password" placeholder="确认新密码" ng-model="user.password" ng-class="{ 'form-has-error': signinForm.password.$invalid &amp;&amp; !signinForm.password.$pristine ,'form-has-error-equal': user.password !== user.repassword }" class="form-input ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" required="">
+            </div>
+            <div class="form-item">
+                <button type="submit" ng-disabled="signinForm.$invalid" ng-class="{'passed':signinForm.$valid}" disabled="disabled">确认修改</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+     $('.main').height($('html,body').height())
+</script>

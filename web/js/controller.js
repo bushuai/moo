@@ -11,7 +11,7 @@
         'signup': '../view/user/signup.html',
         'signin': '../view/user/signin.html',
         'dashboard': '../view/user/dashboard.html',
-        'setting': '../view/pages/setting.html',
+        'setting': '../view/user/setting.html',
         'posts': '../view/user/posts.html',
         //note
         'note': '../view/note/note.html',
@@ -233,8 +233,6 @@
         $scope.signup = function(isValid) {
             if (isValid) {
                 data.user.signup($scope.user, function(response) {
-                    console.log('res from signup');
-                    console.log(response)
                     if (response.user) {
                         $state.go('user.signin', response.user)
                     } else {
@@ -281,7 +279,7 @@
     }
 
     function user_settingController($scope) {
-
+        console.log('hello setting')
     }
 
     function user_postsController($scope, data, $cookies) {
