@@ -1,5 +1,12 @@
 # MOO
-bushuai's GRADUCATION PROJECT.
+bushuai's GRADUCATION PROJECT based on MEAN stack.
+
+## required
+
+- MongoDB
+- Express
+- Angular
+- Node.js
 
 ## install
 
